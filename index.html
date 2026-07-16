@@ -425,6 +425,18 @@
       text-transform: uppercase;
     }
 
+    .example-copy {
+      display: grid;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .example-translation {
+      color: #9bdff0;
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
     .jump-button {
       position: relative;
       z-index: 1;
@@ -861,6 +873,19 @@
       font-weight: 800;
       letter-spacing: 0.06em;
       text-transform: uppercase;
+    }
+
+    .pattern-example .pattern-translation {
+      display: block;
+      margin-top: 4px;
+      margin-right: 0;
+      color: #91dbea;
+      font-size: 0.78rem;
+      font-style: normal;
+      font-weight: 550;
+      letter-spacing: 0;
+      line-height: 1.5;
+      text-transform: none;
     }
 
     .pattern-row.is-complete {
@@ -1405,7 +1430,10 @@
         <p class="focus-description" id="focusDescription">Şu an nasıl, ne veya nerede olduğunu söylemek.</p>
         <p class="example-line">
           <span class="example-label">Örnek</span>
-          <span id="focusExample">I’m tired. / I’m a personal trainer. / I’m at work.</span>
+          <span class="example-copy">
+            <span id="focusExample">I’m tired. / I’m a personal trainer. / I’m at work.</span>
+            <span class="example-translation" id="focusTranslation">(Yorgunum. / Kişisel antrenörüm. / İşteyim.)</span>
+          </span>
         </p>
         <button class="jump-button" id="jumpButton" type="button">Kalıba Git</button>
       </article>
@@ -1671,6 +1699,93 @@
       }
     ];
 
+    const exampleTranslations = {
+      1: "Yorgunum. / Kişisel antrenörüm. / İşteyim.",
+      2: "Bir sorum var.",
+      3: "Her gün danışanlarıma antrenman yaptırıyorum.",
+      4: "Anlamıyorum.",
+      5: "İngilizcemi geliştirmek istiyorum.",
+      6: "Gitmem gerekiyor.",
+      7: "Bence bu iyi bir fikir.",
+      8: "Egzersiz yapmayı seviyorum.",
+      9: "Genellikle erken uyanırım.",
+      10: "Şu anda çalışıyorum.",
+      11: "Sana yardım edebilirim. / Bugün gelemem.",
+      12: "Bu gece çalışmak zorundayım.",
+      13: "Yarın antrenman yapacağım.",
+      14: "Para biriktirmeye çalışıyorum.",
+      15: "Hazır mısın? / Çalışıyor musun?",
+      16: "Burada mı çalışıyorsun?",
+      17: "Bana yardım edebilir misin?",
+      18: "Onu aradın mı?",
+      19: "Ne düşünüyorsun?",
+      20: "Nerede yaşıyorsun? / Ne zaman antrenman yapıyorsun?",
+      21: "Bunu nasıl kullanıyorsun?",
+      22: "Bunu tekrar söyleyebilir misin?",
+      23: "Daha yavaş konuşabilir misin?",
+      24: "‘Schedule’ ne demek?",
+      25: "‘Kas ağrısı’ İngilizcede nasıl söylenir?",
+      26: "Ne demek istiyorsun?",
+      27: "Yarını mı kastediyorsun?",
+      28: "Bir düşüneyim.",
+      29: "Sana bir şey sorabilir miyim?",
+      30: "Biraz su alabilir miyim?",
+      31: "Kapıyı açabilir misin?",
+      32: "Benimle gelmek ister misin?",
+      33: "Biraz kahve ister misin?",
+      34: "Başlayalım.",
+      35: "Sana göstereyim.",
+      36: "Dün yorgundum.",
+      37: "Sabah antrenman yaptım.",
+      38: "İyi uyumadım.",
+      39: "Eskiden futbol oynardım.",
+      40: "Seni arayacaktım.",
+      41: "Seni sonra arayacağım.",
+      42: "Umarım her şey yolunda gider.",
+      43: "Uyumadığım için yorgunum.",
+      44: "Yorgunum ama çalışmak zorundayım.",
+      45: "Yorgundum, bu yüzden eve gittim.",
+      46: "Vaktim olursa seni ararım.",
+      47: "İşimi bitirdiğimde eve giderim.",
+      48: "Antrenmandan önce yemek yerim.",
+      49: "Uyumadım. Bu yüzden yorgunum.",
+      50: "Bir sorun var.",
+      51: "Dışarıda üç kişi var.",
+      52: "Yakınlarda bir spor salonu var mı?",
+      53: "Çok işim var.",
+      54: "Ne kadar vaktimiz var?",
+      55: "Oraya varmak yirmi dakika sürer.",
+      56: "Bu seçenek diğerinden daha iyi.",
+      57: "Bunun zor olduğunu biliyorum.",
+      58: "Onun gelip gelmeyeceğini bilmiyorum.",
+      59: "Bunun gerekli olduğunu düşünmüyorum.",
+      60: "Vaktim olup olmadığından emin değilim.",
+      61: "Fiyata bağlı.",
+      62: "Bu plan hakkında ne düşünüyorsun?",
+      63: "Sana katılıyorum.",
+      64: "Antrenmanımı bitirdim.",
+      65: "Az önce geldim.",
+      66: "Henüz yemek yemedim.",
+      67: "Daha önce hiç Londra’da bulundun mu?",
+      68: "Bunu hiç denemedim.",
+      69: "Almanya’da bulundum.",
+      70: "Ne zamandır antrenman yapıyorsun?",
+      71: "Daha erken uyumalıyım.",
+      72: "Daha fazla su içmelisin.",
+      73: "Bu gece dışarı çıkabilirim.",
+      74: "Yarın sana yardım edebilirim.",
+      75: "Beklemek zorunda değilsin.",
+      76: "İşte olmam gerekiyor.",
+      77: "Evde kalmayı tercih ederim.",
+      78: "Anahtarlarımı arıyorum.",
+      79: "Danışanımı bekliyorum.",
+      80: "Yatırım yapmakla ilgileniyorum.",
+      81: "Gelecek hakkında endişeliyim.",
+      82: "Bana yardım ettiğin için teşekkürler.",
+      83: "Geç kaldığım için özür dilerim.",
+      84: "Kulağa hoş geliyor. / Kulağa iyi bir plan gibi geliyor."
+    };
+
     const STORAGE_KEY = "fluentTrackerProgressV1";
     const allPatterns = curriculum.reduce(function (list, week) {
       return list.concat(week.patterns.map(function (pattern) {
@@ -1679,6 +1794,7 @@
           pattern: pattern[1],
           description: pattern[2],
           example: pattern[3],
+          translation: exampleTranslations[pattern[0]],
           week: week.week
         };
       }));
@@ -1757,7 +1873,9 @@
                   '<span class="pattern-heading" role="heading" aria-level="3">' + escapeHtml(item[1]) + '</span>' +
                 '</span>' +
                 '<span class="pattern-description">' + escapeHtml(item[2]) + '</span>' +
-                '<span class="pattern-example"><span>Örnek</span>' + escapeHtml(item[3]) + '</span>' +
+                '<span class="pattern-example"><span>Örnek</span>' + escapeHtml(item[3]) +
+                  '<span class="pattern-translation">(' + escapeHtml(exampleTranslations[day]) + ')</span>' +
+                '</span>' +
               '</span>' +
             '</label>'
           );
@@ -1837,6 +1955,7 @@
       const focusTitle = document.getElementById("focusTitle");
       const focusDescription = document.getElementById("focusDescription");
       const focusExample = document.getElementById("focusExample");
+      const focusTranslation = document.getElementById("focusTranslation");
       const jumpButton = document.getElementById("jumpButton");
 
       if (next) {
@@ -1844,6 +1963,7 @@
         focusTitle.textContent = next.day + ". Gün — " + next.pattern;
         focusDescription.textContent = next.description;
         focusExample.textContent = next.example;
+        focusTranslation.textContent = "(" + next.translation + ")";
         jumpButton.hidden = false;
         jumpButton.dataset.day = String(next.day);
         jumpButton.dataset.week = String(next.week);
@@ -1852,6 +1972,7 @@
         focusTitle.textContent = "84 kalıbın tamamlandı. Harika iş!";
         focusDescription.textContent = "Kalıpları canlı tutmak için haftalık pratiklerine dönmeye devam edebilirsin.";
         focusExample.textContent = "You did it. Keep speaking.";
+        focusTranslation.textContent = "(Başardın. Konuşmaya devam et.)";
         jumpButton.hidden = true;
         jumpButton.removeAttribute("data-day");
         jumpButton.removeAttribute("data-week");
