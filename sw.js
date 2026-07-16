@@ -1,4 +1,4 @@
-const CACHE_NAME = "emin-inci-ingilizce-takip-v4";
+const CACHE_NAME = "emin-inci-ingilizce-takip-v5";
 const APP_SHELL = [
   "./",
   "./index.html",

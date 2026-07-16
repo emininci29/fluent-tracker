@@ -179,16 +179,19 @@
 
     .brand-mark {
       display: grid;
-      width: 34px;
+      min-width: 34px;
       height: 34px;
+      padding: 0 11px;
+      box-sizing: border-box;
       place-items: center;
       border: 1px solid rgba(156, 140, 255, 0.42);
       border-radius: 11px;
       color: #ffffff;
       background: linear-gradient(135deg, rgba(156, 140, 255, 0.28), rgba(76, 157, 255, 0.15));
       box-shadow: 0 8px 24px rgba(115, 103, 245, 0.2);
-      font-size: 0.69rem;
-      letter-spacing: 0;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
     }
 
     h1,
@@ -1371,8 +1374,8 @@
     <section class="hero glass" aria-labelledby="page-title">
       <div class="hero-copy">
         <div class="brand">
-          <span class="brand-mark" aria-hidden="true">Eİ</span>
-          <span>Emin İnci İngilizce Takip</span>
+          <span class="brand-mark" aria-hidden="true">EMİN İNCİ</span>
+          <span>İNGİLİZCE TAKİP</span>
         </div>
         <h1 id="page-title">İngilizce Cümle Kalıpları</h1>
         <p class="hero-lead">Her gün tek bir kalıbı otomatikleştir. Küçük tekrarlar, rahat konuşmaya dönüşür.</p>
