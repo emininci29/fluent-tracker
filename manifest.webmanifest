@@ -1,6 +1,6 @@
 {
   "name": "Fluent Tracker — İngilizce Cümle Kalıpları",
-  "short_name": "Fluent Tracker",
+  "short_name": "Emin İnci",
   "description": "84 İngilizce cümle kalıbını 12 haftada takip et.",
   "lang": "tr",
   "start_url": "./",
@@ -12,9 +12,15 @@
   "categories": ["education", "productivity"],
   "icons": [
     {
-      "src": "./icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]
