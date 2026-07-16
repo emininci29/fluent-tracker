@@ -1,4 +1,4 @@
-const CACHE_NAME = "fluent-tracker-v2";
+const CACHE_NAME = "emin-inci-ingilizce-takip-v3";
 const APP_SHELL = [
   "./",
   "./index.html",
