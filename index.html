@@ -1,0 +1,1981 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070914">
+  <meta name="color-scheme" content="dark">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Fluent Tracker">
+  <meta name="description" content="84 İngilizce cümle kalıbını 12 haftada takip etmek için çevrimdışı kişisel çalışma uygulaması.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icon.svg">
+  <title>Fluent Tracker — İngilizce Cümle Kalıpları</title>
+  <style>
+    :root {
+      --bg: #070914;
+      --bg-deep: #050710;
+      --surface: rgba(18, 23, 43, 0.78);
+      --surface-solid: #12172b;
+      --surface-soft: rgba(24, 31, 56, 0.68);
+      --surface-hover: rgba(31, 39, 70, 0.8);
+      --text: #f7f8ff;
+      --text-soft: #d6ddf2;
+      --muted: #99a6c5;
+      --dim: #6f7b98;
+      --violet: #9c8cff;
+      --violet-deep: #7367f5;
+      --blue: #4c9dff;
+      --teal: #42dfcf;
+      --success: #69e8b6;
+      --danger: #ff7e9b;
+      --line: rgba(166, 180, 224, 0.14);
+      --line-strong: rgba(166, 180, 224, 0.25);
+      --shadow: 0 28px 80px rgba(0, 0, 0, 0.34);
+      --radius: 20px;
+      --container: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-width: 320px;
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 6%, rgba(115, 103, 245, 0.18), transparent 28rem),
+        radial-gradient(circle at 90% 18%, rgba(66, 223, 207, 0.11), transparent 31rem),
+        radial-gradient(circle at 62% 78%, rgba(76, 157, 255, 0.08), transparent 33rem),
+        linear-gradient(180deg, var(--bg-deep), var(--bg) 45%, #090c19);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body::before {
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, black, transparent 75%);
+      content: "";
+      pointer-events: none;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button,
+    summary,
+    label {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    a,
+    button,
+    summary,
+    input {
+      outline: none;
+    }
+
+    button:focus-visible,
+    summary:focus-visible,
+    input:focus-visible {
+      outline: 3px solid rgba(76, 157, 255, 0.55);
+      outline-offset: 3px;
+    }
+
+    ::selection {
+      color: #ffffff;
+      background: rgba(115, 103, 245, 0.72);
+    }
+
+    .app-shell {
+      width: min(calc(100% - 36px), var(--container));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    .glass {
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgba(21, 27, 51, 0.82), rgba(12, 16, 32, 0.75));
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.035);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      min-height: 430px;
+      grid-template-columns: minmax(0, 1.45fr) minmax(270px, 0.55fr);
+      align-items: center;
+      gap: 44px;
+      overflow: hidden;
+      padding: clamp(32px, 5vw, 66px);
+      border-radius: calc(var(--radius) + 8px);
+    }
+
+    .hero::before,
+    .hero::after {
+      position: absolute;
+      border-radius: 50%;
+      content: "";
+      pointer-events: none;
+      filter: blur(8px);
+    }
+
+    .hero::before {
+      width: 360px;
+      height: 360px;
+      top: -210px;
+      left: 38%;
+      border: 1px solid rgba(156, 140, 255, 0.22);
+      box-shadow: 0 0 90px rgba(115, 103, 245, 0.16);
+    }
+
+    .hero::after {
+      width: 220px;
+      height: 220px;
+      right: -80px;
+      bottom: -130px;
+      background: rgba(66, 223, 207, 0.08);
+      box-shadow: 0 0 100px rgba(66, 223, 207, 0.13);
+    }
+
+    .hero-copy,
+    .hero-visual {
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 25px;
+      color: #d9d4ff;
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border: 1px solid rgba(156, 140, 255, 0.42);
+      border-radius: 11px;
+      color: #ffffff;
+      background: linear-gradient(135deg, rgba(156, 140, 255, 0.28), rgba(76, 157, 255, 0.15));
+      box-shadow: 0 8px 24px rgba(115, 103, 245, 0.2);
+      font-size: 0.69rem;
+      letter-spacing: 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin-bottom: 20px;
+      font-size: clamp(2.65rem, 6vw, 5.15rem);
+      font-weight: 780;
+      letter-spacing: -0.061em;
+      line-height: 0.96;
+    }
+
+    .hero-lead {
+      max-width: 650px;
+      margin-bottom: 26px;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 1.7vw, 1.18rem);
+      line-height: 1.7;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 8px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #c9d2ec;
+      background: rgba(255, 255, 255, 0.035);
+      font-size: 0.83rem;
+      font-weight: 650;
+    }
+
+    .tag::before {
+      width: 6px;
+      height: 6px;
+      margin-right: 8px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 13px rgba(66, 223, 207, 0.65);
+      content: "";
+    }
+
+    .hero-visual {
+      display: grid;
+      min-height: 260px;
+      place-items: center;
+    }
+
+    .progress-orbit {
+      position: relative;
+      display: grid;
+      width: clamp(210px, 23vw, 270px);
+      aspect-ratio: 1;
+      place-items: center;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .progress-orbit::before {
+      position: absolute;
+      width: 116%;
+      aspect-ratio: 1;
+      border: 1px solid rgba(156, 140, 255, 0.14);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .progress-orbit::after {
+      position: absolute;
+      width: 133%;
+      aspect-ratio: 1;
+      border: 1px dashed rgba(76, 157, 255, 0.12);
+      border-radius: 50%;
+      content: "";
+      animation: orbit 28s linear infinite;
+    }
+
+    .progress-ring {
+      --progress: 0%;
+      --progress-mid: 0%;
+      position: relative;
+      z-index: 1;
+      display: grid;
+      width: 100%;
+      aspect-ratio: 1;
+      place-items: center;
+      border-radius: 50%;
+      background:
+        conic-gradient(from -90deg, var(--teal) 0%, var(--blue) var(--progress-mid), var(--violet) var(--progress), rgba(255, 255, 255, 0.075) 0);
+      box-shadow:
+        0 0 46px rgba(76, 157, 255, 0.14),
+        0 26px 60px rgba(0, 0, 0, 0.38);
+      transition: --progress 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .progress-ring::before {
+      position: absolute;
+      inset: 13px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 25%, rgba(156, 140, 255, 0.16), transparent 32%),
+        #0d1223;
+      box-shadow: inset 0 0 32px rgba(0, 0, 0, 0.45);
+      content: "";
+    }
+
+    .ring-content {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+    }
+
+    .ring-value {
+      font-size: clamp(2.65rem, 6vw, 4.55rem);
+      font-weight: 800;
+      letter-spacing: -0.07em;
+      line-height: 1;
+    }
+
+    .ring-label {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 750;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(330px, 0.75fr);
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .focus-card,
+    .summary-card,
+    .rhythm-card,
+    .helper-card {
+      border-radius: var(--radius);
+    }
+
+    .focus-card {
+      position: relative;
+      min-height: 300px;
+      overflow: hidden;
+      padding: clamp(26px, 4vw, 42px);
+    }
+
+    .focus-card::after {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      right: -60px;
+      bottom: -75px;
+      border: 1px solid rgba(66, 223, 207, 0.18);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(66, 223, 207, 0.08), transparent 67%);
+      content: "";
+      pointer-events: none;
+    }
+
+    .section-kicker {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 19px;
+      color: var(--teal);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .section-kicker::before {
+      width: 20px;
+      height: 1px;
+      background: currentColor;
+      content: "";
+    }
+
+    .focus-card h2 {
+      max-width: 780px;
+      margin-bottom: 13px;
+      font-size: clamp(1.55rem, 3.3vw, 2.45rem);
+      letter-spacing: -0.035em;
+      line-height: 1.15;
+    }
+
+    .focus-description {
+      max-width: 720px;
+      margin-bottom: 19px;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .example-line {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      max-width: 720px;
+      margin-bottom: 25px;
+      padding: 14px 16px;
+      border-left: 2px solid var(--violet);
+      border-radius: 0 12px 12px 0;
+      color: #e5e9fa;
+      background: rgba(156, 140, 255, 0.075);
+      font-size: 0.94rem;
+    }
+
+    .example-label {
+      flex: 0 0 auto;
+      color: #bdb5ff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .jump-button {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 0 18px;
+      border: 1px solid rgba(156, 140, 255, 0.38);
+      border-radius: 13px;
+      color: #ffffff;
+      background: linear-gradient(135deg, rgba(115, 103, 245, 0.95), rgba(76, 157, 255, 0.82));
+      box-shadow: 0 12px 28px rgba(91, 84, 214, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 760;
+      transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+    }
+
+    .jump-button::after {
+      content: "↓";
+      font-size: 1rem;
+    }
+
+    .jump-button:hover {
+      box-shadow: 0 16px 34px rgba(91, 84, 214, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      filter: brightness(1.08);
+      transform: translateY(-2px);
+    }
+
+    .jump-button:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .summary-card {
+      display: flex;
+      min-height: 300px;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(24px, 3vw, 34px);
+    }
+
+    .summary-title {
+      margin-bottom: 22px;
+      color: var(--text-soft);
+      font-size: 1rem;
+      font-weight: 750;
+    }
+
+    .metrics {
+      display: grid;
+      gap: 6px;
+    }
+
+    .metric {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .metric:last-child {
+      border-bottom: 0;
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .metric-value {
+      font-size: 1.18rem;
+      font-weight: 780;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .overall-bar {
+      height: 7px;
+      overflow: hidden;
+      margin-top: 24px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .overall-bar-fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--violet), var(--blue), var(--teal));
+      box-shadow: 0 0 22px rgba(76, 157, 255, 0.38);
+      transition: width 650ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .rhythm-card {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 22px;
+      margin-top: 18px;
+      padding: 24px 28px;
+    }
+
+    .rhythm-icon {
+      position: relative;
+      display: grid;
+      width: 56px;
+      height: 56px;
+      place-items: center;
+      border: 1px solid rgba(66, 223, 207, 0.25);
+      border-radius: 16px;
+      color: var(--teal);
+      background: rgba(66, 223, 207, 0.07);
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+
+    .rhythm-icon::before {
+      content: "01";
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+    }
+
+    .rhythm-copy h2 {
+      margin-bottom: 5px;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .rhythm-copy p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .curriculum-section {
+      margin-top: 58px;
+    }
+
+    .curriculum-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 22px;
+    }
+
+    .curriculum-heading h2 {
+      margin-bottom: 7px;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      letter-spacing: -0.045em;
+    }
+
+    .curriculum-heading p {
+      max-width: 580px;
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .curriculum-badge {
+      flex: 0 0 auto;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--text-soft);
+      background: rgba(255, 255, 255, 0.03);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .week-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .week-card {
+      overflow: clip;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(15, 20, 38, 0.76);
+      box-shadow: 0 14px 44px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.025);
+      transition: border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+    }
+
+    .week-card[open] {
+      border-color: rgba(156, 140, 255, 0.25);
+      background: rgba(17, 22, 42, 0.9);
+      box-shadow: 0 22px 56px rgba(0, 0, 0, 0.27), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .week-card.week-complete {
+      border-color: rgba(105, 232, 182, 0.22);
+    }
+
+    .week-summary {
+      display: grid;
+      min-height: 88px;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 18px;
+      padding: 18px 22px;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+    }
+
+    .week-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .week-number {
+      display: grid;
+      width: 50px;
+      height: 50px;
+      place-items: center;
+      border: 1px solid rgba(156, 140, 255, 0.18);
+      border-radius: 15px;
+      color: #d7d1ff;
+      background: rgba(156, 140, 255, 0.07);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+    }
+
+    .week-card.week-complete .week-number {
+      border-color: rgba(105, 232, 182, 0.25);
+      color: var(--success);
+      background: rgba(105, 232, 182, 0.08);
+    }
+
+    .week-title {
+      min-width: 0;
+    }
+
+    .week-heading {
+      display: block;
+      margin-bottom: 7px;
+      font-size: clamp(1rem, 2vw, 1.12rem);
+      font-weight: 700;
+      letter-spacing: -0.015em;
+    }
+
+    .week-progress-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .week-count {
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .mini-track {
+      width: min(180px, 36vw);
+      height: 4px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .mini-fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--violet), var(--teal));
+      transition: width 500ms ease;
+    }
+
+    .chevron {
+      display: grid;
+      width: 32px;
+      height: 32px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.025);
+      transition: transform 250ms ease, color 250ms ease, border-color 250ms ease;
+    }
+
+    .chevron::before {
+      width: 7px;
+      height: 7px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      content: "";
+      transform: rotate(45deg) translate(-1px, -1px);
+    }
+
+    .week-card[open] .chevron {
+      border-color: rgba(156, 140, 255, 0.26);
+      color: var(--violet);
+      transform: rotate(180deg);
+    }
+
+    .week-content {
+      border-top: 1px solid var(--line);
+    }
+
+    .pattern-list {
+      padding: 7px 18px;
+    }
+
+    .pattern-row {
+      position: relative;
+      display: grid;
+      grid-template-columns: 32px minmax(0, 1fr);
+      gap: 15px;
+      padding: 19px 8px;
+      border-bottom: 1px solid var(--line);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+    }
+
+    .pattern-row:last-child {
+      border-bottom-color: transparent;
+    }
+
+    .pattern-row:hover {
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .pattern-row:active {
+      transform: scale(0.995);
+    }
+
+    .day-check,
+    .practice-check {
+      display: grid;
+      flex: 0 0 auto;
+      appearance: none;
+      place-items: center;
+      margin: 2px 0 0;
+      border: 1px solid rgba(171, 184, 222, 0.34);
+      background: rgba(255, 255, 255, 0.025);
+      cursor: pointer;
+      transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    }
+
+    .day-check {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+    }
+
+    .practice-check {
+      width: 23px;
+      height: 23px;
+      border-radius: 8px;
+    }
+
+    .day-check::after,
+    .practice-check::after {
+      width: 7px;
+      height: 11px;
+      border-right: 2px solid #07130f;
+      border-bottom: 2px solid #07130f;
+      content: "";
+      opacity: 0;
+      transform: rotate(45deg) scale(0.55) translate(-1px, -1px);
+      transition: opacity 160ms ease, transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .day-check:checked,
+    .practice-check:checked {
+      border-color: var(--success);
+      background: var(--success);
+      box-shadow: 0 0 0 4px rgba(105, 232, 182, 0.1), 0 0 22px rgba(105, 232, 182, 0.18);
+    }
+
+    .day-check:checked::after,
+    .practice-check:checked::after {
+      opacity: 1;
+      transform: rotate(45deg) scale(1) translate(-1px, -1px);
+    }
+
+    .pattern-main {
+      min-width: 0;
+    }
+
+    .pattern-title-line {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .day-number {
+      flex: 0 0 auto;
+      color: var(--dim);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .pattern-heading {
+      display: block;
+      margin-bottom: 0;
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.012em;
+      line-height: 1.35;
+      transition: color 180ms ease;
+    }
+
+    .pattern-description {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .pattern-example {
+      display: block;
+      margin-bottom: 0;
+      color: #bbc6e2;
+      font-size: 0.84rem;
+      font-style: italic;
+    }
+
+    .pattern-example span {
+      margin-right: 5px;
+      color: var(--dim);
+      font-size: 0.68rem;
+      font-style: normal;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .pattern-row.is-complete {
+      background: linear-gradient(90deg, rgba(105, 232, 182, 0.075), rgba(105, 232, 182, 0.012));
+      box-shadow: inset 3px 0 0 rgba(105, 232, 182, 0.65);
+    }
+
+    .pattern-row.is-complete .pattern-heading {
+      color: #dffbed;
+    }
+
+    .pattern-row.is-complete .day-number {
+      color: var(--success);
+    }
+
+    .pattern-row.target-pulse {
+      animation: targetPulse 1.25s ease;
+    }
+
+    .practice-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      min-height: 76px;
+      padding: 17px 26px;
+      border-top: 1px solid var(--line);
+      background: rgba(6, 9, 20, 0.35);
+    }
+
+    .practice-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-soft);
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .practice-status {
+      color: var(--dim);
+      font-size: 0.75rem;
+      font-weight: 750;
+    }
+
+    .practice-row.is-complete .practice-status {
+      color: var(--success);
+    }
+
+    .footer-area {
+      margin-top: 18px;
+    }
+
+    .helper-card {
+      overflow: hidden;
+    }
+
+    .helper-summary {
+      display: flex;
+      min-height: 72px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 24px;
+      cursor: pointer;
+      list-style: none;
+      font-weight: 750;
+    }
+
+    .helper-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .helper-summary::after {
+      color: var(--violet);
+      content: "+";
+      font-size: 1.4rem;
+      font-weight: 500;
+      transition: transform 220ms ease;
+    }
+
+    .helper-card[open] .helper-summary::after {
+      transform: rotate(45deg);
+    }
+
+    .helper-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      padding: 1px;
+      border-top: 1px solid var(--line);
+      background: var(--line);
+    }
+
+    .helper-item {
+      min-height: 118px;
+      padding: 20px;
+      background: #0f1427;
+    }
+
+    .helper-term {
+      display: block;
+      margin-bottom: 8px;
+      color: #d8d2ff;
+      font-size: 0.94rem;
+      font-weight: 800;
+    }
+
+    .helper-meaning {
+      color: var(--muted);
+      font-size: 0.81rem;
+      line-height: 1.55;
+    }
+
+    .page-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 23px 4px 0;
+      color: var(--dim);
+      font-size: 0.75rem;
+    }
+
+    .reset-button {
+      padding: 8px 11px;
+      border: 1px solid rgba(255, 126, 155, 0.2);
+      border-radius: 10px;
+      color: #c99aaa;
+      background: transparent;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 700;
+      transition: color 180ms ease, border-color 180ms ease, background 180ms ease, transform 180ms ease;
+    }
+
+    .reset-button:hover {
+      border-color: rgba(255, 126, 155, 0.42);
+      color: #ffadbf;
+      background: rgba(255, 126, 155, 0.06);
+    }
+
+    .reset-button:active {
+      transform: scale(0.97);
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      z-index: 100;
+      display: grid;
+      inset: 0;
+      place-items: center;
+      padding: 20px;
+      background: rgba(2, 4, 12, 0.75);
+      backdrop-filter: blur(12px);
+      animation: modalIn 180ms ease both;
+    }
+
+    .modal-backdrop[hidden] {
+      display: none;
+    }
+
+    .modal {
+      width: min(100%, 430px);
+      padding: 28px;
+      border: 1px solid rgba(166, 180, 224, 0.2);
+      border-radius: var(--radius);
+      background: linear-gradient(150deg, #171d34, #0d1121);
+      box-shadow: 0 35px 100px rgba(0, 0, 0, 0.55);
+      animation: modalCardIn 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .modal-icon {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      place-items: center;
+      margin-bottom: 19px;
+      border: 1px solid rgba(255, 126, 155, 0.26);
+      border-radius: 14px;
+      color: var(--danger);
+      background: rgba(255, 126, 155, 0.08);
+      font-size: 1.18rem;
+      font-weight: 800;
+    }
+
+    .modal h2 {
+      margin-bottom: 10px;
+      font-size: 1.35rem;
+      letter-spacing: -0.025em;
+    }
+
+    .modal p {
+      margin-bottom: 24px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .modal-cancel,
+    .modal-confirm {
+      min-height: 43px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 0.86rem;
+      font-weight: 750;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .modal-cancel {
+      border: 1px solid var(--line-strong);
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .modal-confirm {
+      border: 1px solid rgba(255, 126, 155, 0.32);
+      color: #ffdbe3;
+      background: rgba(255, 126, 155, 0.15);
+    }
+
+    .modal-cancel:hover {
+      background: rgba(255, 255, 255, 0.075);
+    }
+
+    .modal-confirm:hover {
+      border-color: rgba(255, 126, 155, 0.55);
+      background: rgba(255, 126, 155, 0.24);
+    }
+
+    .modal-cancel:active,
+    .modal-confirm:active {
+      transform: scale(0.98);
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    @property --progress {
+      syntax: "<percentage>";
+      inherits: false;
+      initial-value: 0%;
+    }
+
+    @property --progress-mid {
+      syntax: "<percentage>";
+      inherits: false;
+      initial-value: 0%;
+    }
+
+    @keyframes float {
+      0%,
+      100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes orbit {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes targetPulse {
+      0%,
+      100% { box-shadow: inset 0 0 0 rgba(76, 157, 255, 0); }
+      40% { box-shadow: inset 0 0 0 1px rgba(76, 157, 255, 0.75), 0 0 32px rgba(76, 157, 255, 0.2); }
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes modalCardIn {
+      from { opacity: 0; transform: translateY(10px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @media (max-width: 900px) {
+      .app-shell {
+        width: min(calc(100% - 24px), var(--container));
+        padding-top: 12px;
+      }
+
+      .hero {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        gap: 35px;
+        text-align: center;
+      }
+
+      .brand,
+      .tag-row {
+        justify-content: center;
+      }
+
+      .hero-lead {
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .hero-visual {
+        min-height: 230px;
+      }
+
+      .progress-orbit {
+        width: 225px;
+      }
+
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .focus-card,
+      .summary-card {
+        min-height: auto;
+      }
+
+      .helper-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      .app-shell {
+        width: min(calc(100% - 18px), var(--container));
+        padding-bottom: 32px;
+      }
+
+      .hero {
+        gap: 30px;
+        padding: 29px 20px 38px;
+        border-radius: 22px;
+      }
+
+      .brand {
+        margin-bottom: 21px;
+      }
+
+      h1 {
+        font-size: clamp(2.45rem, 13.6vw, 4.1rem);
+      }
+
+      .hero-lead {
+        font-size: 0.95rem;
+      }
+
+      .tag-row {
+        gap: 7px;
+      }
+
+      .tag {
+        min-height: 33px;
+        padding: 7px 10px;
+        font-size: 0.76rem;
+      }
+
+      .progress-orbit {
+        width: 195px;
+      }
+
+      .focus-card,
+      .summary-card {
+        padding: 24px 20px;
+      }
+
+      .example-line {
+        display: block;
+      }
+
+      .example-label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .rhythm-card {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 22px 20px;
+      }
+
+      .rhythm-icon {
+        width: 47px;
+        height: 47px;
+        border-radius: 14px;
+      }
+
+      .curriculum-section {
+        margin-top: 45px;
+      }
+
+      .curriculum-heading {
+        display: block;
+      }
+
+      .curriculum-badge {
+        display: inline-block;
+        margin-top: 16px;
+      }
+
+      .week-summary {
+        min-height: 80px;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        gap: 12px;
+        padding: 15px 13px;
+      }
+
+      .week-number {
+        width: 43px;
+        height: 43px;
+        border-radius: 13px;
+        font-size: 0.7rem;
+      }
+
+      .week-heading {
+        margin-bottom: 5px;
+        font-size: 0.92rem;
+      }
+
+      .mini-track {
+        display: none;
+      }
+
+      .chevron {
+        width: 29px;
+        height: 29px;
+      }
+
+      .pattern-list {
+        padding: 4px 10px;
+      }
+
+      .pattern-row {
+        grid-template-columns: 28px minmax(0, 1fr);
+        gap: 10px;
+        padding: 17px 4px;
+      }
+
+      .day-check {
+        width: 24px;
+        height: 24px;
+      }
+
+      .pattern-title-line {
+        display: block;
+      }
+
+      .day-number {
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .pattern-heading {
+        font-size: 0.94rem;
+      }
+
+      .pattern-description {
+        font-size: 0.83rem;
+      }
+
+      .pattern-example {
+        font-size: 0.79rem;
+      }
+
+      .practice-row {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 17px 18px;
+      }
+
+      .helper-summary {
+        padding: 17px 19px;
+      }
+
+      .helper-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .helper-item {
+        min-height: auto;
+      }
+
+      .page-footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app-shell">
+    <section class="hero glass" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">FT</span>
+          <span>FLUENT TRACKER</span>
+        </div>
+        <h1 id="page-title">İngilizce Cümle Kalıpları</h1>
+        <p class="hero-lead">Her gün tek bir kalıbı otomatikleştir. Küçük tekrarlar, rahat konuşmaya dönüşür.</p>
+        <div class="tag-row" aria-label="Program özellikleri">
+          <span class="tag">84 kalıp</span>
+          <span class="tag">Günde 1 odak</span>
+          <span class="tag">12 haftalık sistem</span>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-label="Genel ilerleme">
+        <div class="progress-orbit">
+          <div class="progress-ring" id="progressRing" role="progressbar" aria-label="Genel ilerleme" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="ring-content">
+              <span class="ring-value" id="ringValue">0%</span>
+              <span class="ring-label">ilerleme</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-grid" aria-label="Günlük odak ve özet">
+      <article class="focus-card glass" id="focusCard">
+        <div class="section-kicker" id="focusKicker">Bugünün odağı</div>
+        <h2 id="focusTitle">1. Gün — I’m + sıfat / meslek / yer</h2>
+        <p class="focus-description" id="focusDescription">Şu an nasıl, ne veya nerede olduğunu söylemek.</p>
+        <p class="example-line">
+          <span class="example-label">Örnek</span>
+          <span id="focusExample">I’m tired. / I’m a personal trainer. / I’m at work.</span>
+        </p>
+        <button class="jump-button" id="jumpButton" type="button">Kalıba Git</button>
+      </article>
+
+      <aside class="summary-card glass" aria-labelledby="summaryTitle">
+        <div>
+          <h2 class="summary-title" id="summaryTitle">Çalışma özeti</h2>
+          <div class="metrics" aria-live="polite">
+            <div class="metric">
+              <span class="metric-label">Tamamlanan kalıp</span>
+              <strong class="metric-value" id="completedMetric">0 / 84</strong>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Sıradaki adım</span>
+              <strong class="metric-value" id="nextMetric">1. gün</strong>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Haftalık pratik</span>
+              <strong class="metric-value" id="practiceMetric">0 / 12</strong>
+            </div>
+          </div>
+        </div>
+        <div class="overall-bar" aria-hidden="true">
+          <div class="overall-bar-fill" id="overallBar"></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="rhythm-card glass" aria-labelledby="rhythmTitle">
+      <div class="rhythm-icon" aria-hidden="true"></div>
+      <div class="rhythm-copy">
+        <h2 id="rhythmTitle">Günlük çalışma ritmi</h2>
+        <p>Kalıbı öğren → 10 kişisel cümle kur → 30–60 saniye sesli kullan.</p>
+      </div>
+    </section>
+
+    <section class="curriculum-section" aria-labelledby="curriculumTitle">
+      <header class="curriculum-heading">
+        <div>
+          <h2 id="curriculumTitle">12 haftalık müfredat</h2>
+          <p>Her satır tek bir günlük odak. Bir haftayı aç, kalıbı çalış ve tamamladıkça işaretle.</p>
+        </div>
+        <span class="curriculum-badge">7 kalıp × 12 hafta</span>
+      </header>
+      <div class="week-list" id="weekList"></div>
+    </section>
+
+    <section class="footer-area">
+      <details class="helper-card glass">
+        <summary class="helper-summary">Kısa yardımcı kelime özeti</summary>
+        <div class="helper-grid">
+          <div class="helper-item">
+            <span class="helper-term">am / is / are</span>
+            <span class="helper-meaning">Şimdiki zamanda “olmak”; durum, kimlik ve yer anlatır.</span>
+          </div>
+          <div class="helper-item">
+            <span class="helper-term">was / were</span>
+            <span class="helper-meaning">Geçmiş zamanda “olmak”; önceki durumları anlatır.</span>
+          </div>
+          <div class="helper-item">
+            <span class="helper-term">have / has</span>
+            <span class="helper-meaning">Sahiplik veya tamamlanmış deneyim anlatmaya yardım eder.</span>
+          </div>
+          <div class="helper-item">
+            <span class="helper-term">can</span>
+            <span class="helper-meaning">Yetenek, imkân veya izin belirtir.</span>
+          </div>
+          <div class="helper-item">
+            <span class="helper-term">should</span>
+            <span class="helper-meaning">Tavsiye veya yapılması iyi olan şeyi belirtir.</span>
+          </div>
+          <div class="helper-item">
+            <span class="helper-term">have to</span>
+            <span class="helper-meaning">Zorunluluk ve gereklilik belirtir.</span>
+          </div>
+          <div class="helper-item">
+            <span class="helper-term">will</span>
+            <span class="helper-meaning">Gelecek kararını, tahmini veya sözü belirtir.</span>
+          </div>
+          <div class="helper-item">
+            <span class="helper-term">might</span>
+            <span class="helper-meaning">Kesin olmayan bir ihtimali belirtir.</span>
+          </div>
+        </div>
+      </details>
+
+      <footer class="page-footer">
+        <span>İlerlemen bu tarayıcıda otomatik olarak saklanır.</span>
+        <button class="reset-button" id="resetButton" type="button">İlerlemeyi sıfırla</button>
+      </footer>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="resetModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDescription">
+      <div class="modal-icon" aria-hidden="true">!</div>
+      <h2 id="modalTitle">İlerleme sıfırlansın mı?</h2>
+      <p id="modalDescription">Tüm tamamlanan günler ve haftalık pratik işaretleri silinecek. Bu işlem geri alınamaz.</p>
+      <div class="modal-actions">
+        <button class="modal-cancel" id="cancelReset" type="button">Vazgeç</button>
+        <button class="modal-confirm" id="confirmReset" type="button">Evet, sıfırla</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const curriculum = [
+      {
+        week: 1,
+        title: "Cümle kurmanın ana motorları",
+        patterns: [
+          [1, "I’m + sıfat / meslek / yer", "Şu an nasıl, ne veya nerede olduğunu söylemek.", "I’m tired. / I’m a personal trainer. / I’m at work."],
+          [2, "I have + isim", "Sahip olduğun bir şeyi söylemek.", "I have a question."],
+          [3, "I + fiil + nesne / zaman", "Yaptığın işi veya eylemi söylemek.", "I train clients every day."],
+          [4, "I don’t + fiilin yalın hâli", "Yapmadığın veya bilmediğin bir şeyi söylemek.", "I don’t understand."],
+          [5, "I want to + fiil", "Ne yapmak istediğini söylemek.", "I want to improve my English."],
+          [6, "I need to + fiil", "Ne yapman gerektiğini söylemek.", "I need to leave."],
+          [7, "I think (that) + cümle", "Fikrini söylemek.", "I think this is a good idea."]
+        ]
+      },
+      {
+        week: 2,
+        title: "Günlük rutin, yetenek ve planlar",
+        patterns: [
+          [8, "I like + isim / fiil-ing", "Sevdiğin şeyleri söylemek.", "I like working out."],
+          [9, "I usually + fiil", "Genellikle yaptığın şeyleri söylemek.", "I usually wake up early."],
+          [10, "I’m + fiil-ing", "Şu anda yaptığın şeyi söylemek.", "I’m working right now."],
+          [11, "I can / can’t + fiil", "Yapabildiğin veya yapamadığın şeyi söylemek.", "I can help you. / I can’t come today."],
+          [12, "I have to + fiil", "Zorunlu olduğun şeyi söylemek.", "I have to work tonight."],
+          [13, "I’m going to + fiil", "Yapmayı planladığın şeyi söylemek.", "I’m going to train tomorrow."],
+          [14, "I’m trying to + fiil", "Yapmaya çalıştığın şeyi söylemek.", "I’m trying to save money."]
+        ]
+      },
+      {
+        week: 3,
+        title: "En önemli soru kalıpları",
+        patterns: [
+          [15, "Are you + sıfat / isim / fiil-ing?", "Birinin durumunu veya ne yaptığını sormak.", "Are you ready? / Are you working?"],
+          [16, "Do you + fiil?", "Birinin genel olarak bir şey yapıp yapmadığını sormak.", "Do you work here?"],
+          [17, "Can you + fiil?", "Birinin bir şeyi yapıp yapamadığını sormak.", "Can you help me?"],
+          [18, "Did you + fiil?", "Geçmişte bir şey yapılıp yapılmadığını sormak.", "Did you call him?"],
+          [19, "What do you + fiil?", "Ne yaptığını veya düşündüğünü sormak.", "What do you think?"],
+          [20, "Where / When do you + fiil?", "Yer veya zaman sormak.", "Where do you live? / When do you train?"],
+          [21, "How do you + fiil?", "Bir şeyin nasıl yapıldığını sormak.", "How do you use this?"]
+        ]
+      },
+      {
+        week: 4,
+        title: "Anlamadığında konuşmayı kurtarma",
+        patterns: [
+          [22, "Could you say that again?", "Söyleneni tekrar ettirmek.", "Could you say that again?"],
+          [23, "Could you speak more slowly?", "Karşı tarafın daha yavaş konuşmasını istemek.", "Could you speak more slowly?"],
+          [24, "What does ___ mean?", "Bir kelimenin anlamını sormak.", "What does ‘schedule’ mean?"],
+          [25, "How do you say ___ in English?", "Bir ifadenin İngilizcesini sormak.", "How do you say ‘kas ağrısı’ in English?"],
+          [26, "What do you mean?", "Karşı tarafın ne demek istediğini sormak.", "What do you mean?"],
+          [27, "Do you mean + isim / cümle?", "Doğru anlayıp anlamadığını kontrol etmek.", "Do you mean tomorrow?"],
+          [28, "Let me think.", "Düşünmek için zaman kazanmak.", "Let me think."]
+        ]
+      },
+      {
+        week: 5,
+        title: "İstek, rica, teklif ve öneri",
+        patterns: [
+          [29, "Can I + fiil?", "İzin istemek veya soru sormak.", "Can I ask you something?"],
+          [30, "Can I have + isim?", "Bir şey istemek.", "Can I have some water?"],
+          [31, "Could you + fiil?", "Kibarca rica etmek.", "Could you open the door?"],
+          [32, "Do you want to + fiil?", "Birine bir şey yapmak isteyip istemediğini sormak.", "Do you want to come with me?"],
+          [33, "Would you like + isim / to fiil?", "Kibarca teklif etmek.", "Would you like some coffee?"],
+          [34, "Let’s + fiil", "Birlikte bir şey yapmayı önermek.", "Let’s start."],
+          [35, "Let me + fiil", "Bir şeyi senin yapacağını söylemek.", "Let me show you."]
+        ]
+      },
+      {
+        week: 6,
+        title: "Geçmiş ve gelecek",
+        patterns: [
+          [36, "I was + sıfat / yer / isim", "Geçmişteki durumunu söylemek.", "I was tired yesterday."],
+          [37, "I + fiilin geçmiş hâli", "Geçmişte yaptığın şeyi söylemek.", "I trained in the morning."],
+          [38, "I didn’t + fiilin yalın hâli", "Geçmişte yapmadığın şeyi söylemek.", "I didn’t sleep well."],
+          [39, "I used to + fiil", "Eskiden düzenli yaptığın şeyi söylemek.", "I used to play football."],
+          [40, "I was going to + fiil", "Yapmayı düşündüğün fakat henüz yapmadığın şeyi söylemek.", "I was going to call you."],
+          [41, "I’ll + fiil", "Gelecekte yapacağın şeyi söylemek.", "I’ll call you later."],
+          [42, "I hope + cümle / to fiil", "Umut veya beklenti belirtmek.", "I hope everything goes well."]
+        ]
+      },
+      {
+        week: 7,
+        title: "Cümleleri birbirine bağlama",
+        patterns: [
+          [43, "Cümle + because + sebep", "Bir şeyin nedenini açıklamak.", "I’m tired because I didn’t sleep."],
+          [44, "Cümle + but + zıtlık", "İki zıt düşünceyi bağlamak.", "I’m tired, but I have to work."],
+          [45, "Cümle + so + sonuç", "Bir durumun sonucunu söylemek.", "I was tired, so I went home."],
+          [46, "If + şart, I’ll / can + sonuç", "Bir koşula bağlı sonucu söylemek.", "If I have time, I’ll call you."],
+          [47, "When + olay, sonuç", "Bir olay olduğunda ne olduğunu söylemek.", "When I finish work, I go home."],
+          [48, "Before / After + isim / fiil-ing / cümle", "Olayların sırasını belirtmek.", "I eat before training."],
+          [49, "That’s why + cümle", "Bir durumun sonucunu açıklamak.", "I didn’t sleep. That’s why I’m tired."]
+        ]
+      },
+      {
+        week: 8,
+        title: "Varlık, miktar ve karşılaştırma",
+        patterns: [
+          [50, "There is + tekil / sayılamayan isim", "Bir şeyin var olduğunu söylemek.", "There is a problem."],
+          [51, "There are + çoğul isim", "Birden fazla şeyin var olduğunu söylemek.", "There are three people outside."],
+          [52, "Is there / Are there + isim?", "Bir şeyin var olup olmadığını sormak.", "Is there a gym nearby?"],
+          [53, "a lot of / a little / a few + isim", "Miktar belirtmek.", "I have a lot of work."],
+          [54, "How much / How many + isim?", "Miktar veya sayı sormak.", "How much time do we have?"],
+          [55, "It takes + süre + to fiil", "Bir şeyin ne kadar sürdüğünü söylemek.", "It takes twenty minutes to get there."],
+          [56, "X is more / less / better than Y", "İki şeyi karşılaştırmak.", "This option is better than the other one."]
+        ]
+      },
+      {
+        week: 9,
+        title: "Düşünce ve belirsizlik belirtme",
+        patterns: [
+          [57, "I know (that) + cümle", "Bildiğin şeyi söylemek.", "I know it’s difficult."],
+          [58, "I don’t know if / what / where / how + cümle", "Bilmediğin veya emin olmadığın şeyi söylemek.", "I don’t know if he’s coming."],
+          [59, "I don’t think (that) + cümle", "Bir fikre katılmadığını veya ihtimal vermediğini söylemek.", "I don’t think it’s necessary."],
+          [60, "I’m not sure if + cümle", "Emin olmadığını söylemek.", "I’m not sure if I have time."],
+          [61, "It depends on + isim", "Cevabın bir şeye bağlı olduğunu söylemek.", "It depends on the price."],
+          [62, "What do you think about + isim / fiil-ing?", "Birinin fikrini sormak.", "What do you think about this plan?"],
+          [63, "I agree / don’t agree with + kişi / fikir", "Katıldığını veya katılmadığını söylemek.", "I agree with you."]
+        ]
+      },
+      {
+        week: 10,
+        title: "Deneyimler ve tamamlanan işler",
+        patterns: [
+          [64, "I’ve + fiilin üçüncü hâli", "Tamamladığın veya deneyimlediğin şeyi söylemek.", "I’ve finished my workout."],
+          [65, "I’ve just / already + üçüncü hâl", "Yeni veya önceden tamamlanan şeyi söylemek.", "I’ve just arrived."],
+          [66, "I haven’t + üçüncü hâl + yet", "Henüz yapmadığın şeyi söylemek.", "I haven’t eaten yet."],
+          [67, "Have you ever + üçüncü hâl?", "Birinin bir şeyi daha önce yapıp yapmadığını sormak.", "Have you ever been to London?"],
+          [68, "I’ve never + üçüncü hâl", "Hiç yapmadığın şeyi söylemek.", "I’ve never tried that."],
+          [69, "I’ve been to + yer", "Daha önce bulunduğun yeri söylemek.", "I’ve been to Germany."],
+          [70, "How long have you + üçüncü hâl / been-ing?", "Bir şeyin ne kadar süredir devam ettiğini sormak.", "How long have you been training?"]
+        ]
+      },
+      {
+        week: 11,
+        title: "Tavsiye, ihtimal ve zorunluluk",
+        patterns: [
+          [71, "I should + fiil", "Yapmanın iyi olacağını düşündüğün şeyi söylemek.", "I should sleep earlier."],
+          [72, "You should + fiil", "Birine tavsiye vermek.", "You should drink more water."],
+          [73, "I might + fiil", "Bir şeyi yapma ihtimalini söylemek.", "I might go out tonight."],
+          [74, "I could + fiil", "Yapabileceğin bir seçeneği söylemek.", "I could help you tomorrow."],
+          [75, "You don’t have to + fiil", "Bir şeyin zorunlu olmadığını söylemek.", "You don’t have to wait."],
+          [76, "I’m supposed to + fiil", "Yapman beklenen şeyi söylemek.", "I’m supposed to be at work."],
+          [77, "I’d rather + fiil", "Tercihini söylemek.", "I’d rather stay home."]
+        ]
+      },
+      {
+        week: 12,
+        title: "Günlük hayatta kullanılan pratik kalıplar",
+        patterns: [
+          [78, "I’m looking for + isim", "Aradığın şeyi söylemek.", "I’m looking for my keys."],
+          [79, "I’m waiting for + kişi / şey", "Beklediğin kişi veya şeyi söylemek.", "I’m waiting for my client."],
+          [80, "I’m interested in + isim / fiil-ing", "İlgilendiğin şeyi söylemek.", "I’m interested in investing."],
+          [81, "I’m worried about + isim", "Endişelendiğin şeyi söylemek.", "I’m worried about the future."],
+          [82, "Thanks for + isim / fiil-ing", "Bir şey için teşekkür etmek.", "Thanks for helping me."],
+          [83, "Sorry for + isim / fiil-ing", "Bir şey için özür dilemek.", "Sorry for being late."],
+          [84, "It sounds + sıfat / It sounds like + isim / cümle", "Bir şey hakkındaki ilk izlenimini söylemek.", "It sounds good. / It sounds like a good plan."]
+        ]
+      }
+    ];
+
+    const STORAGE_KEY = "fluentTrackerProgressV1";
+    const allPatterns = curriculum.reduce(function (list, week) {
+      return list.concat(week.patterns.map(function (pattern) {
+        return {
+          day: pattern[0],
+          pattern: pattern[1],
+          description: pattern[2],
+          example: pattern[3],
+          week: week.week
+        };
+      }));
+    }, []);
+
+    function readStoredProgress() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+        const completedDays = Array.isArray(saved.completedDays)
+          ? saved.completedDays.filter(function (day) {
+              return Number.isInteger(day) && day >= 1 && day <= 84;
+            })
+          : [];
+        const weeklyPractices = Array.isArray(saved.weeklyPractices)
+          ? saved.weeklyPractices.filter(function (week) {
+              return Number.isInteger(week) && week >= 1 && week <= 12;
+            })
+          : [];
+        return {
+          completedDays: new Set(completedDays),
+          weeklyPractices: new Set(weeklyPractices)
+        };
+      } catch (error) {
+        return {
+          completedDays: new Set(),
+          weeklyPractices: new Set()
+        };
+      }
+    }
+
+    let progress = readStoredProgress();
+
+    function saveProgress() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          completedDays: Array.from(progress.completedDays).sort(function (a, b) { return a - b; }),
+          weeklyPractices: Array.from(progress.weeklyPractices).sort(function (a, b) { return a - b; })
+        }));
+      } catch (error) {
+        /* Tarayıcı depolamayı engellerse uygulama mevcut oturumda çalışmaya devam eder. */
+      }
+    }
+
+    function getNextPattern() {
+      return allPatterns.find(function (item) {
+        return !progress.completedDays.has(item.day);
+      }) || null;
+    }
+
+    function getCurrentWeek() {
+      const next = getNextPattern();
+      return next ? next.week : 12;
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function renderCurriculum() {
+      const currentWeek = getCurrentWeek();
+      const weekList = document.getElementById("weekList");
+
+      weekList.innerHTML = curriculum.map(function (week) {
+        const patternRows = week.patterns.map(function (item) {
+          const day = item[0];
+          return (
+            '<label class="pattern-row" id="day-' + day + '" data-day="' + day + '">' +
+              '<input class="day-check" type="checkbox" data-day="' + day + '" aria-label="' + day + '. günü tamamla">' +
+              '<span class="pattern-main">' +
+                '<span class="pattern-title-line">' +
+                  '<span class="day-number">' + day + '. Gün</span>' +
+                  '<span class="pattern-heading" role="heading" aria-level="3">' + escapeHtml(item[1]) + '</span>' +
+                '</span>' +
+                '<span class="pattern-description">' + escapeHtml(item[2]) + '</span>' +
+                '<span class="pattern-example"><span>Örnek</span>' + escapeHtml(item[3]) + '</span>' +
+              '</span>' +
+            '</label>'
+          );
+        }).join("");
+
+        return (
+          '<details class="week-card" id="week-' + week.week + '" data-week="' + week.week + '"' + (week.week === currentWeek ? " open" : "") + '>' +
+            '<summary class="week-summary">' +
+              '<span class="week-number">' + week.week + '. HF</span>' +
+              '<span class="week-title">' +
+                '<span class="week-heading" role="heading" aria-level="3">' + escapeHtml(week.title) + '</span>' +
+                '<span class="week-progress-line">' +
+                  '<span class="week-count" id="week-count-' + week.week + '">0 / 7</span>' +
+                  '<span class="mini-track" aria-hidden="true"><span class="mini-fill" id="week-bar-' + week.week + '"></span></span>' +
+                '</span>' +
+              '</span>' +
+              '<span class="chevron" aria-hidden="true"></span>' +
+            '</summary>' +
+            '<div class="week-content">' +
+              '<div class="pattern-list">' + patternRows + '</div>' +
+              '<div class="practice-row" id="practice-row-' + week.week + '">' +
+                '<label class="practice-label">' +
+                  '<input class="practice-check" type="checkbox" data-week="' + week.week + '">' +
+                  '<span>Haftalık pratiği tamamladım</span>' +
+                '</label>' +
+                '<span class="practice-status" id="practice-status-' + week.week + '">Bekliyor</span>' +
+              '</div>' +
+            '</div>' +
+          '</details>'
+        );
+      }).join("");
+
+      document.querySelectorAll(".day-check").forEach(function (checkbox) {
+        checkbox.addEventListener("change", function () {
+          const day = Number(checkbox.dataset.day);
+          if (checkbox.checked) {
+            progress.completedDays.add(day);
+          } else {
+            progress.completedDays.delete(day);
+          }
+          saveProgress();
+          updateInterface();
+        });
+      });
+
+      document.querySelectorAll(".practice-check").forEach(function (checkbox) {
+        checkbox.addEventListener("change", function () {
+          const week = Number(checkbox.dataset.week);
+          if (checkbox.checked) {
+            progress.weeklyPractices.add(week);
+          } else {
+            progress.weeklyPractices.delete(week);
+          }
+          saveProgress();
+          updateInterface();
+        });
+      });
+    }
+
+    function updateInterface() {
+      const completedCount = progress.completedDays.size;
+      const practiceCount = progress.weeklyPractices.size;
+      const percentage = Math.round((completedCount / 84) * 100);
+      const next = getNextPattern();
+      const ring = document.getElementById("progressRing");
+
+      ring.style.setProperty("--progress", percentage + "%");
+      ring.style.setProperty("--progress-mid", (percentage * 0.52) + "%");
+      ring.setAttribute("aria-valuenow", String(percentage));
+      document.getElementById("ringValue").textContent = percentage + "%";
+      document.getElementById("completedMetric").textContent = completedCount + " / 84";
+      document.getElementById("practiceMetric").textContent = practiceCount + " / 12";
+      document.getElementById("nextMetric").textContent = next ? next.day + ". gün" : "Tamamlandı";
+      document.getElementById("overallBar").style.width = percentage + "%";
+
+      const focusKicker = document.getElementById("focusKicker");
+      const focusTitle = document.getElementById("focusTitle");
+      const focusDescription = document.getElementById("focusDescription");
+      const focusExample = document.getElementById("focusExample");
+      const jumpButton = document.getElementById("jumpButton");
+
+      if (next) {
+        focusKicker.textContent = "Bugünün odağı";
+        focusTitle.textContent = next.day + ". Gün — " + next.pattern;
+        focusDescription.textContent = next.description;
+        focusExample.textContent = next.example;
+        jumpButton.hidden = false;
+        jumpButton.dataset.day = String(next.day);
+        jumpButton.dataset.week = String(next.week);
+      } else {
+        focusKicker.textContent = "Program tamamlandı";
+        focusTitle.textContent = "84 kalıbın tamamlandı. Harika iş!";
+        focusDescription.textContent = "Kalıpları canlı tutmak için haftalık pratiklerine dönmeye devam edebilirsin.";
+        focusExample.textContent = "You did it. Keep speaking.";
+        jumpButton.hidden = true;
+        jumpButton.removeAttribute("data-day");
+        jumpButton.removeAttribute("data-week");
+      }
+
+      curriculum.forEach(function (week) {
+        const weekCompleted = week.patterns.filter(function (item) {
+          return progress.completedDays.has(item[0]);
+        }).length;
+        const details = document.getElementById("week-" + week.week);
+        document.getElementById("week-count-" + week.week).textContent = weekCompleted + " / 7";
+        document.getElementById("week-bar-" + week.week).style.width = ((weekCompleted / 7) * 100) + "%";
+        details.classList.toggle("week-complete", weekCompleted === 7);
+
+        week.patterns.forEach(function (item) {
+          const day = item[0];
+          const checked = progress.completedDays.has(day);
+          const checkbox = document.querySelector('.day-check[data-day="' + day + '"]');
+          const row = document.getElementById("day-" + day);
+          checkbox.checked = checked;
+          row.classList.toggle("is-complete", checked);
+        });
+
+        const practiceDone = progress.weeklyPractices.has(week.week);
+        const practiceCheckbox = document.querySelector('.practice-check[data-week="' + week.week + '"]');
+        const practiceRow = document.getElementById("practice-row-" + week.week);
+        practiceCheckbox.checked = practiceDone;
+        practiceRow.classList.toggle("is-complete", practiceDone);
+        document.getElementById("practice-status-" + week.week).textContent = practiceDone ? "Tamamlandı" : "Bekliyor";
+      });
+    }
+
+    function jumpToCurrentPattern() {
+      const button = document.getElementById("jumpButton");
+      const day = Number(button.dataset.day);
+      const week = Number(button.dataset.week);
+
+      if (!day || !week) {
+        return;
+      }
+
+      const details = document.getElementById("week-" + week);
+      const row = document.getElementById("day-" + day);
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      details.open = true;
+      row.scrollIntoView({
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+        block: "center"
+      });
+      row.classList.remove("target-pulse");
+      void row.offsetWidth;
+      row.classList.add("target-pulse");
+      window.setTimeout(function () {
+        row.classList.remove("target-pulse");
+        const checkbox = row.querySelector(".day-check");
+        if (checkbox) {
+          checkbox.focus({ preventScroll: true });
+        }
+      }, prefersReducedMotion ? 20 : 700);
+    }
+
+    const resetModal = document.getElementById("resetModal");
+    const cancelReset = document.getElementById("cancelReset");
+
+    function openResetModal() {
+      resetModal.hidden = false;
+      document.body.classList.add("modal-open");
+      window.setTimeout(function () {
+        cancelReset.focus();
+      }, 0);
+    }
+
+    function closeResetModal() {
+      resetModal.hidden = true;
+      document.body.classList.remove("modal-open");
+      document.getElementById("resetButton").focus();
+    }
+
+    function resetProgress() {
+      progress.completedDays.clear();
+      progress.weeklyPractices.clear();
+      saveProgress();
+      updateInterface();
+      document.querySelectorAll(".week-card").forEach(function (details, index) {
+        details.open = index === 0;
+      });
+      closeResetModal();
+      window.scrollTo({
+        top: 0,
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+      });
+    }
+
+    document.getElementById("jumpButton").addEventListener("click", jumpToCurrentPattern);
+    document.getElementById("resetButton").addEventListener("click", openResetModal);
+    cancelReset.addEventListener("click", closeResetModal);
+    document.getElementById("confirmReset").addEventListener("click", resetProgress);
+
+    resetModal.addEventListener("click", function (event) {
+      if (event.target === resetModal) {
+        closeResetModal();
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !resetModal.hidden) {
+        closeResetModal();
+      }
+    });
+
+    window.addEventListener("storage", function (event) {
+      if (event.key === STORAGE_KEY) {
+        progress = readStoredProgress();
+        updateInterface();
+      }
+    });
+
+    if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("./sw.js").catch(function () {
+          /* Uygulama çevrimiçi çalışmayı sürdürür; sonraki açılışta kayıt yeniden denenir. */
+        });
+      });
+    }
+
+    renderCurriculum();
+    updateInterface();
+  </script>
+</body>
+</html>

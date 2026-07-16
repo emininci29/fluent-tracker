@@ -1,0 +1,21 @@
+{
+  "name": "Fluent Tracker — İngilizce Cümle Kalıpları",
+  "short_name": "Fluent Tracker",
+  "description": "84 İngilizce cümle kalıbını 12 haftada takip et.",
+  "lang": "tr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#070914",
+  "theme_color": "#070914",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
