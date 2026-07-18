@@ -396,10 +396,22 @@
     }
 
     .focus-description {
+      display: flex;
+      align-items: baseline;
+      gap: 9px;
       max-width: 720px;
       margin-bottom: 19px;
       color: var(--muted);
       font-size: 0.98rem;
+    }
+
+    .meaning-label {
+      flex: 0 0 auto;
+      color: #91dbea;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
     }
 
     .example-line {
@@ -414,6 +426,10 @@
       color: #e5e9fa;
       background: rgba(156, 140, 255, 0.075);
       font-size: 0.94rem;
+    }
+
+    .example-line[hidden] {
+      display: none;
     }
 
     .example-label {
@@ -855,6 +871,10 @@
       margin-bottom: 8px;
       color: var(--muted);
       font-size: 0.88rem;
+    }
+
+    .pattern-description .meaning-label {
+      margin-right: 6px;
     }
 
     .pattern-example {
@@ -1426,13 +1446,13 @@
     <section class="content-grid" aria-label="Günlük odak ve özet">
       <article class="focus-card glass" id="focusCard">
         <div class="section-kicker" id="focusKicker">Bugünün odağı</div>
-        <h2 id="focusTitle">1. Gün — I’m + sıfat / meslek / yer</h2>
-        <p class="focus-description" id="focusDescription">Şu an nasıl, ne veya nerede olduğunu söylemek.</p>
-        <p class="example-line">
+        <h2 id="focusTitle">1. Gün — I don’t know.</h2>
+        <p class="focus-description"><span class="meaning-label" id="focusMeaningLabel">Türkçesi</span><span id="focusDescription">Bilmiyorum.</span></p>
+        <p class="example-line" id="focusExampleLine" hidden>
           <span class="example-label">Örnek</span>
           <span class="example-copy">
-            <span id="focusExample">I’m tired. / I’m a personal trainer. / I’m at work.</span>
-            <span class="example-translation" id="focusTranslation">(Yorgunum. / Kişisel antrenörüm. / İşteyim.)</span>
+            <span id="focusExample">I think that this is a good idea.</span>
+            <span class="example-translation" id="focusTranslation">(Bence bu iyi bir fikir.)</span>
           </span>
         </p>
         <button class="jump-button" id="jumpButton" type="button">Kalıba Git</button>
@@ -1543,250 +1563,163 @@
     const curriculum = [
       {
         week: 1,
-        title: "Cümle kurmanın ana motorları",
+        title: "Temel düşünce ve ihtiyaç kalıpları",
         patterns: [
-          [1, "I’m + sıfat / meslek / yer", "Şu an nasıl, ne veya nerede olduğunu söylemek.", "I’m tired. / I’m a personal trainer. / I’m at work."],
-          [2, "I have + isim", "Sahip olduğun bir şeyi söylemek.", "I have a question."],
-          [3, "I + fiil + nesne / zaman", "Yaptığın işi veya eylemi söylemek.", "I train clients every day."],
-          [4, "I don’t + fiilin yalın hâli", "Yapmadığın veya bilmediğin bir şeyi söylemek.", "I don’t understand."],
-          [5, "I want to + fiil", "Ne yapmak istediğini söylemek.", "I want to improve my English."],
-          [6, "I need to + fiil", "Ne yapman gerektiğini söylemek.", "I need to leave."],
-          [7, "I think (that) + cümle", "Fikrini söylemek.", "I think this is a good idea."]
+          [1, "I don’t know.", "Bilmiyorum.", null, null],
+          [2, "I think (that) …", "Bence / düşünüyorum ki…", "I think that this is a good idea.", "Bence bu iyi bir fikir."],
+          [3, "I don’t think (that) …", "Sanmıyorum ki…", "I don’t think that he is ready.", "Onun hazır olduğunu sanmıyorum."],
+          [4, "I want to …", "… yapmak istiyorum.", "I want to improve my English.", "İngilizcemi geliştirmek istiyorum."],
+          [5, "I need to …", "… yapmam gerekiyor.", "I need to leave now.", "Şimdi gitmem gerekiyor."],
+          [6, "I have to …", "… yapmak zorundayım.", "I have to work tomorrow.", "Yarın çalışmak zorundayım."],
+          [7, "I’m going to …", "… yapacağım.", "I’m going to call you later.", "Seni sonra arayacağım."]
         ]
       },
       {
         week: 2,
-        title: "Günlük rutin, yetenek ve planlar",
+        title: "Tercih, fikir ve belirsizlik",
         patterns: [
-          [8, "I like + isim / fiil-ing", "Sevdiğin şeyleri söylemek.", "I like working out."],
-          [9, "I usually + fiil", "Genellikle yaptığın şeyleri söylemek.", "I usually wake up early."],
-          [10, "I’m + fiil-ing", "Şu anda yaptığın şeyi söylemek.", "I’m working right now."],
-          [11, "I can / can’t + fiil", "Yapabildiğin veya yapamadığın şeyi söylemek.", "I can help you. / I can’t come today."],
-          [12, "I have to + fiil", "Zorunlu olduğun şeyi söylemek.", "I have to work tonight."],
-          [13, "I’m going to + fiil", "Yapmayı planladığın şeyi söylemek.", "I’m going to train tomorrow."],
-          [14, "I’m trying to + fiil", "Yapmaya çalıştığın şeyi söylemek.", "I’m trying to save money."]
+          [8, "I don’t want to …", "… yapmak istemiyorum.", "I don’t want to wait.", "Beklemek istemiyorum."],
+          [9, "I’d like to …", "… yapmak isterim.", "I’d like to order some coffee.", "Biraz kahve sipariş etmek isterim."],
+          [10, "I like …", "… seviyorum.", "I like reading books.", "Kitap okumayı seviyorum."],
+          [11, "I don’t like …", "… sevmiyorum.", "I don’t like waking up early.", "Erken uyanmayı sevmiyorum."],
+          [12, "I mean …", "Yani / demek istediğim…", "I mean we should leave now.", "Demek istediğim, şimdi gitmeliyiz."],
+          [13, "You know …", "Biliyorsun / yani…", "You know, this is important.", "Biliyorsun, bu önemli."],
+          [14, "I guess …", "Sanırım…", "I guess he is busy.", "Sanırım o meşgul."]
         ]
       },
       {
         week: 3,
-        title: "En önemli soru kalıpları",
+        title: "Temel soru kalıpları",
         patterns: [
-          [15, "Are you + sıfat / isim / fiil-ing?", "Birinin durumunu veya ne yaptığını sormak.", "Are you ready? / Are you working?"],
-          [16, "Do you + fiil?", "Birinin genel olarak bir şey yapıp yapmadığını sormak.", "Do you work here?"],
-          [17, "Can you + fiil?", "Birinin bir şeyi yapıp yapamadığını sormak.", "Can you help me?"],
-          [18, "Did you + fiil?", "Geçmişte bir şey yapılıp yapılmadığını sormak.", "Did you call him?"],
-          [19, "What do you + fiil?", "Ne yaptığını veya düşündüğünü sormak.", "What do you think?"],
-          [20, "Where / When do you + fiil?", "Yer veya zaman sormak.", "Where do you live? / When do you train?"],
-          [21, "How do you + fiil?", "Bir şeyin nasıl yapıldığını sormak.", "How do you use this?"]
+          [15, "I’m not sure.", "Emin değilim.", null, null],
+          [16, "Can you …?", "… yapabilir misin?", "Can you help me?", "Bana yardım edebilir misin?"],
+          [17, "Could you …?", "… yapabilir misin?", "Could you open the window?", "Pencereyi açabilir misin?"],
+          [18, "Do you …?", "… yapar mısın?", "Do you work here?", "Burada çalışıyor musun?"],
+          [19, "Did you …?", "… yaptın mı?", "Did you call her?", "Onu aradın mı?"],
+          [20, "Have you …?", "… yaptın mı?", "Have you finished your work?", "İşini bitirdin mi?"],
+          [21, "Are you …?", "… mısın?", "Are you ready?", "Hazır mısın?"]
         ]
       },
       {
         week: 4,
-        title: "Anlamadığında konuşmayı kurtarma",
+        title: "Rica, teklif ve günlük sorular",
         patterns: [
-          [22, "Could you say that again?", "Söyleneni tekrar ettirmek.", "Could you say that again?"],
-          [23, "Could you speak more slowly?", "Karşı tarafın daha yavaş konuşmasını istemek.", "Could you speak more slowly?"],
-          [24, "What does ___ mean?", "Bir kelimenin anlamını sormak.", "What does ‘schedule’ mean?"],
-          [25, "How do you say ___ in English?", "Bir ifadenin İngilizcesini sormak.", "How do you say ‘kas ağrısı’ in English?"],
-          [26, "What do you mean?", "Karşı tarafın ne demek istediğini sormak.", "What do you mean?"],
-          [27, "Do you mean + isim / cümle?", "Doğru anlayıp anlamadığını kontrol etmek.", "Do you mean tomorrow?"],
-          [28, "Let me think.", "Düşünmek için zaman kazanmak.", "Let me think."]
+          [22, "Would you …?", "… yapar mısın?", "Would you wait here?", "Burada bekler misin?"],
+          [23, "Do you want to …?", "… yapmak ister misin?", "Do you want to come with us?", "Bizimle gelmek ister misin?"],
+          [24, "Would you like …?", "… ister misin?", "Would you like some tea?", "Biraz çay ister misin?"],
+          [25, "What do you think?", "Ne düşünüyorsun?", null, null],
+          [26, "What do you mean?", "Ne demek istiyorsun?", null, null],
+          [27, "What happened?", "Ne oldu?", null, null],
+          [28, "What’s wrong?", "Ne oldu / sorun ne?", null, null]
         ]
       },
       {
         week: 5,
-        title: "İstek, rica, teklif ve öneri",
+        title: "Durum, yer, zaman ve fiyat",
         patterns: [
-          [29, "Can I + fiil?", "İzin istemek veya soru sormak.", "Can I ask you something?"],
-          [30, "Can I have + isim?", "Bir şey istemek.", "Can I have some water?"],
-          [31, "Could you + fiil?", "Kibarca rica etmek.", "Could you open the door?"],
-          [32, "Do you want to + fiil?", "Birine bir şey yapmak isteyip istemediğini sormak.", "Do you want to come with me?"],
-          [33, "Would you like + isim / to fiil?", "Kibarca teklif etmek.", "Would you like some coffee?"],
-          [34, "Let’s + fiil", "Birlikte bir şey yapmayı önermek.", "Let’s start."],
-          [35, "Let me + fiil", "Bir şeyi senin yapacağını söylemek.", "Let me show you."]
+          [29, "How are you?", "Nasılsın?", null, null],
+          [30, "What are you doing?", "Ne yapıyorsun?", null, null],
+          [31, "How do you …?", "Nasıl … yaparsın?", "How do you use this?", "Bunu nasıl kullanırsın?"],
+          [32, "Where is / are …?", "… nerede?", "Where are my keys?", "Anahtarlarım nerede?"],
+          [33, "When are you …?", "Ne zaman … yapacaksın?", "When are you leaving?", "Ne zaman ayrılacaksın?"],
+          [34, "Why are you …?", "Neden … yapıyorsun?", "Why are you laughing?", "Neden gülüyorsun?"],
+          [35, "How much is it?", "Bu ne kadar?", null, null]
         ]
       },
       {
         week: 6,
-        title: "Geçmiş ve gelecek",
+        title: "İzin, öneri ve ortak planlar",
         patterns: [
-          [36, "I was + sıfat / yer / isim", "Geçmişteki durumunu söylemek.", "I was tired yesterday."],
-          [37, "I + fiilin geçmiş hâli", "Geçmişte yaptığın şeyi söylemek.", "I trained in the morning."],
-          [38, "I didn’t + fiilin yalın hâli", "Geçmişte yapmadığın şeyi söylemek.", "I didn’t sleep well."],
-          [39, "I used to + fiil", "Eskiden düzenli yaptığın şeyi söylemek.", "I used to play football."],
-          [40, "I was going to + fiil", "Yapmayı düşündüğün fakat henüz yapmadığın şeyi söylemek.", "I was going to call you."],
-          [41, "I’ll + fiil", "Gelecekte yapacağın şeyi söylemek.", "I’ll call you later."],
-          [42, "I hope + cümle / to fiil", "Umut veya beklenti belirtmek.", "I hope everything goes well."]
+          [36, "Can I …?", "… yapabilir miyim?", "Can I sit here?", "Buraya oturabilir miyim?"],
+          [37, "Could I …?", "… yapabilir miyim?", "Could I ask a question?", "Bir soru sorabilir miyim?"],
+          [38, "May I …?", "… yapabilir miyim?", "May I come in?", "İçeri girebilir miyim?"],
+          [39, "Let me …", "Bırak, ben…", "Let me help you.", "Bırak, sana yardım edeyim."],
+          [40, "Let’s …", "Haydi … yapalım.", "Let’s start now.", "Haydi şimdi başlayalım."],
+          [41, "How about …?", "… nasıl olur?", "How about going for a walk?", "Yürüyüşe çıkmaya ne dersin?"],
+          [42, "What about …?", "Peki ya …?", "What about tomorrow?", "Peki ya yarın?"]
         ]
       },
       {
         week: 7,
-        title: "Cümleleri birbirine bağlama",
+        title: "Öneriler ve yapabilme",
         patterns: [
-          [43, "Cümle + because + sebep", "Bir şeyin nedenini açıklamak.", "I’m tired because I didn’t sleep."],
-          [44, "Cümle + but + zıtlık", "İki zıt düşünceyi bağlamak.", "I’m tired, but I have to work."],
-          [45, "Cümle + so + sonuç", "Bir durumun sonucunu söylemek.", "I was tired, so I went home."],
-          [46, "If + şart, I’ll / can + sonuç", "Bir koşula bağlı sonucu söylemek.", "If I have time, I’ll call you."],
-          [47, "When + olay, sonuç", "Bir olay olduğunda ne olduğunu söylemek.", "When I finish work, I go home."],
-          [48, "Before / After + isim / fiil-ing / cümle", "Olayların sırasını belirtmek.", "I eat before training."],
-          [49, "That’s why + cümle", "Bir durumun sonucunu açıklamak.", "I didn’t sleep. That’s why I’m tired."]
+          [43, "Why don’t we …?", "Neden … yapmıyoruz?", "Why don’t we take a break?", "Neden mola vermiyoruz?"],
+          [44, "I can …", "… yapabilirim.", "I can help you.", "Sana yardım edebilirim."],
+          [45, "I can’t …", "… yapamam.", "I can’t come today.", "Bugün gelemem."],
+          [46, "I could …", "… yapabilirdim.", "I could call him.", "Onu arayabilirdim."],
+          [47, "I should …", "… yapmalıyım.", "I should sleep earlier.", "Daha erken uyumalıyım."],
+          [48, "I shouldn’t …", "… yapmamalıyım.", "I shouldn’t eat so much sugar.", "Bu kadar çok şeker yememeliyim."],
+          [49, "I would …", "… yapardım.", "I would choose this one.", "Ben bunu seçerdim."]
         ]
       },
       {
         week: 8,
-        title: "Varlık, miktar ve karşılaştırma",
+        title: "Gelecek, alışkanlık ve deneyim",
         patterns: [
-          [50, "There is + tekil / sayılamayan isim", "Bir şeyin var olduğunu söylemek.", "There is a problem."],
-          [51, "There are + çoğul isim", "Birden fazla şeyin var olduğunu söylemek.", "There are three people outside."],
-          [52, "Is there / Are there + isim?", "Bir şeyin var olup olmadığını sormak.", "Is there a gym nearby?"],
-          [53, "a lot of / a little / a few + isim", "Miktar belirtmek.", "I have a lot of work."],
-          [54, "How much / How many + isim?", "Miktar veya sayı sormak.", "How much time do we have?"],
-          [55, "It takes + süre + to fiil", "Bir şeyin ne kadar sürdüğünü söylemek.", "It takes twenty minutes to get there."],
-          [56, "X is more / less / better than Y", "İki şeyi karşılaştırmak.", "This option is better than the other one."]
+          [50, "I wouldn’t …", "… yapmazdım.", "I wouldn’t do that.", "Ben bunu yapmazdım."],
+          [51, "I will …", "… yapacağım.", "I will call you tomorrow.", "Seni yarın arayacağım."],
+          [52, "I won’t …", "… yapmayacağım.", "I won’t be late.", "Geç kalmayacağım."],
+          [53, "I used to …", "Eskiden … yapardım.", "I used to play football.", "Eskiden futbol oynardım."],
+          [54, "I’m used to …", "… yapmaya alışkınım.", "I’m used to waking up early.", "Erken uyanmaya alışkınım."],
+          [55, "I have been …", "… yapıyor oldum / … bulundum.", "I have been to London.", "Londra’da bulundum."],
+          [56, "I’ve just …", "Az önce … yaptım.", "I’ve just finished my work.", "İşimi az önce bitirdim."]
         ]
       },
       {
         week: 9,
-        title: "Düşünce ve belirsizlik belirtme",
+        title: "Deneyim, arama ve nezaket",
         patterns: [
-          [57, "I know (that) + cümle", "Bildiğin şeyi söylemek.", "I know it’s difficult."],
-          [58, "I don’t know if / what / where / how + cümle", "Bilmediğin veya emin olmadığın şeyi söylemek.", "I don’t know if he’s coming."],
-          [59, "I don’t think (that) + cümle", "Bir fikre katılmadığını veya ihtimal vermediğini söylemek.", "I don’t think it’s necessary."],
-          [60, "I’m not sure if + cümle", "Emin olmadığını söylemek.", "I’m not sure if I have time."],
-          [61, "It depends on + isim", "Cevabın bir şeye bağlı olduğunu söylemek.", "It depends on the price."],
-          [62, "What do you think about + isim / fiil-ing?", "Birinin fikrini sormak.", "What do you think about this plan?"],
-          [63, "I agree / don’t agree with + kişi / fikir", "Katıldığını veya katılmadığını söylemek.", "I agree with you."]
+          [57, "Have you ever …?", "Hiç … yaptın mı?", "Have you ever visited Paris?", "Hiç Paris’i ziyaret ettin mi?"],
+          [58, "I’m looking for …", "… arıyorum.", "I’m looking for my phone.", "Telefonumu arıyorum."],
+          [59, "I’m trying to …", "… yapmaya çalışıyorum.", "I’m trying to learn English.", "İngilizce öğrenmeye çalışıyorum."],
+          [60, "I’m sorry.", "Üzgünüm.", null, null],
+          [61, "Excuse me.", "Affedersiniz / bakar mısınız?", null, null],
+          [62, "No problem.", "Sorun değil.", null, null],
+          [63, "That’s okay.", "Sorun değil / tamam.", null, null]
         ]
       },
       {
         week: 10,
-        title: "Deneyimler ve tamamlanan işler",
+        title: "Günlük tepkiler ve fikirler",
         patterns: [
-          [64, "I’ve + fiilin üçüncü hâli", "Tamamladığın veya deneyimlediğin şeyi söylemek.", "I’ve finished my workout."],
-          [65, "I’ve just / already + üçüncü hâl", "Yeni veya önceden tamamlanan şeyi söylemek.", "I’ve just arrived."],
-          [66, "I haven’t + üçüncü hâl + yet", "Henüz yapmadığın şeyi söylemek.", "I haven’t eaten yet."],
-          [67, "Have you ever + üçüncü hâl?", "Birinin bir şeyi daha önce yapıp yapmadığını sormak.", "Have you ever been to London?"],
-          [68, "I’ve never + üçüncü hâl", "Hiç yapmadığın şeyi söylemek.", "I’ve never tried that."],
-          [69, "I’ve been to + yer", "Daha önce bulunduğun yeri söylemek.", "I’ve been to Germany."],
-          [70, "How long have you + üçüncü hâl / been-ing?", "Bir şeyin ne kadar süredir devam ettiğini sormak.", "How long have you been training?"]
+          [64, "Of course.", "Tabii ki.", null, null],
+          [65, "Really?", "Gerçekten mi?", null, null],
+          [66, "That’s great.", "Bu harika.", null, null],
+          [67, "Sounds good.", "Kulağa iyi geliyor.", null, null],
+          [68, "It depends.", "Duruma bağlı.", null, null],
+          [69, "I agree.", "Katılıyorum.", null, null],
+          [70, "I don’t agree.", "Katılmıyorum.", null, null]
         ]
       },
       {
         week: 11,
-        title: "Tavsiye, ihtimal ve zorunluluk",
+        title: "Rahatlatma ve günlük ifadeler",
         patterns: [
-          [71, "I should + fiil", "Yapmanın iyi olacağını düşündüğün şeyi söylemek.", "I should sleep earlier."],
-          [72, "You should + fiil", "Birine tavsiye vermek.", "You should drink more water."],
-          [73, "I might + fiil", "Bir şeyi yapma ihtimalini söylemek.", "I might go out tonight."],
-          [74, "I could + fiil", "Yapabileceğin bir seçeneği söylemek.", "I could help you tomorrow."],
-          [75, "You don’t have to + fiil", "Bir şeyin zorunlu olmadığını söylemek.", "You don’t have to wait."],
-          [76, "I’m supposed to + fiil", "Yapman beklenen şeyi söylemek.", "I’m supposed to be at work."],
-          [77, "I’d rather + fiil", "Tercihini söylemek.", "I’d rather stay home."]
+          [71, "You’re right.", "Haklısın.", null, null],
+          [72, "I don’t mind.", "Benim için fark etmez.", null, null],
+          [73, "Never mind.", "Boş ver.", null, null],
+          [74, "Don’t worry.", "Endişelenme.", null, null],
+          [75, "Take your time.", "Acele etme.", null, null],
+          [76, "Here you are.", "Buyurun / işte.", null, null],
+          [77, "See you later.", "Sonra görüşürüz.", null, null]
         ]
       },
       {
         week: 12,
-        title: "Günlük hayatta kullanılan pratik kalıplar",
+        title: "Vedalaşma, iyi dilek ve empati",
         patterns: [
-          [78, "I’m looking for + isim", "Aradığın şeyi söylemek.", "I’m looking for my keys."],
-          [79, "I’m waiting for + kişi / şey", "Beklediğin kişi veya şeyi söylemek.", "I’m waiting for my client."],
-          [80, "I’m interested in + isim / fiil-ing", "İlgilendiğin şeyi söylemek.", "I’m interested in investing."],
-          [81, "I’m worried about + isim", "Endişelendiğin şeyi söylemek.", "I’m worried about the future."],
-          [82, "Thanks for + isim / fiil-ing", "Bir şey için teşekkür etmek.", "Thanks for helping me."],
-          [83, "Sorry for + isim / fiil-ing", "Bir şey için özür dilemek.", "Sorry for being late."],
-          [84, "It sounds + sıfat / It sounds like + isim / cümle", "Bir şey hakkındaki ilk izlenimini söylemek.", "It sounds good. / It sounds like a good plan."]
+          [78, "Talk to you later.", "Sonra konuşuruz.", null, null],
+          [79, "Have a nice day.", "İyi günler.", null, null],
+          [80, "Good luck.", "Bol şans.", null, null],
+          [81, "Be careful.", "Dikkat et.", null, null],
+          [82, "Congratulations!", "Tebrikler!", null, null],
+          [83, "I’m sorry to hear that.", "Bunu duyduğuma üzüldüm.", null, null],
+          [84, "That’s too bad.", "Ne kötü / üzücü olmuş.", null, null]
         ]
       }
     ];
 
-    const exampleTranslations = {
-      1: "Yorgunum. / Kişisel antrenörüm. / İşteyim.",
-      2: "Bir sorum var.",
-      3: "Her gün danışanlarıma antrenman yaptırıyorum.",
-      4: "Anlamıyorum.",
-      5: "İngilizcemi geliştirmek istiyorum.",
-      6: "Gitmem gerekiyor.",
-      7: "Bence bu iyi bir fikir.",
-      8: "Egzersiz yapmayı seviyorum.",
-      9: "Genellikle erken uyanırım.",
-      10: "Şu anda çalışıyorum.",
-      11: "Sana yardım edebilirim. / Bugün gelemem.",
-      12: "Bu gece çalışmak zorundayım.",
-      13: "Yarın antrenman yapacağım.",
-      14: "Para biriktirmeye çalışıyorum.",
-      15: "Hazır mısın? / Çalışıyor musun?",
-      16: "Burada mı çalışıyorsun?",
-      17: "Bana yardım edebilir misin?",
-      18: "Onu aradın mı?",
-      19: "Ne düşünüyorsun?",
-      20: "Nerede yaşıyorsun? / Ne zaman antrenman yapıyorsun?",
-      21: "Bunu nasıl kullanıyorsun?",
-      22: "Bunu tekrar söyleyebilir misin?",
-      23: "Daha yavaş konuşabilir misin?",
-      24: "‘Schedule’ ne demek?",
-      25: "‘Kas ağrısı’ İngilizcede nasıl söylenir?",
-      26: "Ne demek istiyorsun?",
-      27: "Yarını mı kastediyorsun?",
-      28: "Bir düşüneyim.",
-      29: "Sana bir şey sorabilir miyim?",
-      30: "Biraz su alabilir miyim?",
-      31: "Kapıyı açabilir misin?",
-      32: "Benimle gelmek ister misin?",
-      33: "Biraz kahve ister misin?",
-      34: "Başlayalım.",
-      35: "Sana göstereyim.",
-      36: "Dün yorgundum.",
-      37: "Sabah antrenman yaptım.",
-      38: "İyi uyumadım.",
-      39: "Eskiden futbol oynardım.",
-      40: "Seni arayacaktım.",
-      41: "Seni sonra arayacağım.",
-      42: "Umarım her şey yolunda gider.",
-      43: "Uyumadığım için yorgunum.",
-      44: "Yorgunum ama çalışmak zorundayım.",
-      45: "Yorgundum, bu yüzden eve gittim.",
-      46: "Vaktim olursa seni ararım.",
-      47: "İşimi bitirdiğimde eve giderim.",
-      48: "Antrenmandan önce yemek yerim.",
-      49: "Uyumadım. Bu yüzden yorgunum.",
-      50: "Bir sorun var.",
-      51: "Dışarıda üç kişi var.",
-      52: "Yakınlarda bir spor salonu var mı?",
-      53: "Çok işim var.",
-      54: "Ne kadar vaktimiz var?",
-      55: "Oraya varmak yirmi dakika sürer.",
-      56: "Bu seçenek diğerinden daha iyi.",
-      57: "Bunun zor olduğunu biliyorum.",
-      58: "Onun gelip gelmeyeceğini bilmiyorum.",
-      59: "Bunun gerekli olduğunu düşünmüyorum.",
-      60: "Vaktim olup olmadığından emin değilim.",
-      61: "Fiyata bağlı.",
-      62: "Bu plan hakkında ne düşünüyorsun?",
-      63: "Sana katılıyorum.",
-      64: "Antrenmanımı bitirdim.",
-      65: "Az önce geldim.",
-      66: "Henüz yemek yemedim.",
-      67: "Daha önce hiç Londra’da bulundun mu?",
-      68: "Bunu hiç denemedim.",
-      69: "Almanya’da bulundum.",
-      70: "Ne zamandır antrenman yapıyorsun?",
-      71: "Daha erken uyumalıyım.",
-      72: "Daha fazla su içmelisin.",
-      73: "Bu gece dışarı çıkabilirim.",
-      74: "Yarın sana yardım edebilirim.",
-      75: "Beklemek zorunda değilsin.",
-      76: "İşte olmam gerekiyor.",
-      77: "Evde kalmayı tercih ederim.",
-      78: "Anahtarlarımı arıyorum.",
-      79: "Danışanımı bekliyorum.",
-      80: "Yatırım yapmakla ilgileniyorum.",
-      81: "Gelecek hakkında endişeliyim.",
-      82: "Bana yardım ettiğin için teşekkürler.",
-      83: "Geç kaldığım için özür dilerim.",
-      84: "Kulağa hoş geliyor. / Kulağa iyi bir plan gibi geliyor."
-    };
-
-    const STORAGE_KEY = "fluentTrackerProgressV1";
+    const STORAGE_KEY = "eminInciProgressV2";
     const allPatterns = curriculum.reduce(function (list, week) {
       return list.concat(week.patterns.map(function (pattern) {
         return {
@@ -1794,23 +1727,25 @@
           pattern: pattern[1],
           description: pattern[2],
           example: pattern[3],
-          translation: exampleTranslations[pattern[0]],
+          translation: pattern[4],
           week: week.week
         };
       }));
     }, []);
+    const TOTAL_PATTERNS = allPatterns.length;
+    const TOTAL_WEEKS = curriculum.length;
 
     function readStoredProgress() {
       try {
         const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
         const completedDays = Array.isArray(saved.completedDays)
           ? saved.completedDays.filter(function (day) {
-              return Number.isInteger(day) && day >= 1 && day <= 84;
+              return Number.isInteger(day) && day >= 1 && day <= TOTAL_PATTERNS;
             })
           : [];
         const weeklyPractices = Array.isArray(saved.weeklyPractices)
           ? saved.weeklyPractices.filter(function (week) {
-              return Number.isInteger(week) && week >= 1 && week <= 12;
+              return Number.isInteger(week) && week >= 1 && week <= TOTAL_WEEKS;
             })
           : [];
         return {
@@ -1846,7 +1781,7 @@
 
     function getCurrentWeek() {
       const next = getNextPattern();
-      return next ? next.week : 12;
+      return next ? next.week : TOTAL_WEEKS;
     }
 
     function escapeHtml(value) {
@@ -1864,6 +1799,11 @@
       weekList.innerHTML = curriculum.map(function (week) {
         const patternRows = week.patterns.map(function (item) {
           const day = item[0];
+          const exampleBlock = item[3]
+            ? '<span class="pattern-example"><span>Örnek</span>' + escapeHtml(item[3]) +
+                '<span class="pattern-translation">(' + escapeHtml(item[4]) + ')</span>' +
+              '</span>'
+            : '';
           return (
             '<label class="pattern-row" id="day-' + day + '" data-day="' + day + '">' +
               '<input class="day-check" type="checkbox" data-day="' + day + '" aria-label="' + day + '. günü tamamla">' +
@@ -1872,10 +1812,8 @@
                   '<span class="day-number">' + day + '. Gün</span>' +
                   '<span class="pattern-heading" role="heading" aria-level="3">' + escapeHtml(item[1]) + '</span>' +
                 '</span>' +
-                '<span class="pattern-description">' + escapeHtml(item[2]) + '</span>' +
-                '<span class="pattern-example"><span>Örnek</span>' + escapeHtml(item[3]) +
-                  '<span class="pattern-translation">(' + escapeHtml(exampleTranslations[day]) + ')</span>' +
-                '</span>' +
+                '<span class="pattern-description"><span class="meaning-label">Türkçesi</span>' + escapeHtml(item[2]) + '</span>' +
+                exampleBlock +
               '</span>' +
             '</label>'
           );
@@ -1888,7 +1826,7 @@
               '<span class="week-title">' +
                 '<span class="week-heading" role="heading" aria-level="3">' + escapeHtml(week.title) + '</span>' +
                 '<span class="week-progress-line">' +
-                  '<span class="week-count" id="week-count-' + week.week + '">0 / 7</span>' +
+                  '<span class="week-count" id="week-count-' + week.week + '">0 / ' + week.patterns.length + '</span>' +
                   '<span class="mini-track" aria-hidden="true"><span class="mini-fill" id="week-bar-' + week.week + '"></span></span>' +
                 '</span>' +
               '</span>' +
@@ -1938,7 +1876,7 @@
     function updateInterface() {
       const completedCount = progress.completedDays.size;
       const practiceCount = progress.weeklyPractices.size;
-      const percentage = Math.round((completedCount / 84) * 100);
+      const percentage = Math.round((completedCount / TOTAL_PATTERNS) * 100);
       const next = getNextPattern();
       const ring = document.getElementById("progressRing");
 
@@ -1946,14 +1884,16 @@
       ring.style.setProperty("--progress-mid", (percentage * 0.52) + "%");
       ring.setAttribute("aria-valuenow", String(percentage));
       document.getElementById("ringValue").textContent = percentage + "%";
-      document.getElementById("completedMetric").textContent = completedCount + " / 84";
-      document.getElementById("practiceMetric").textContent = practiceCount + " / 12";
+      document.getElementById("completedMetric").textContent = completedCount + " / " + TOTAL_PATTERNS;
+      document.getElementById("practiceMetric").textContent = practiceCount + " / " + TOTAL_WEEKS;
       document.getElementById("nextMetric").textContent = next ? next.day + ". gün" : "Tamamlandı";
       document.getElementById("overallBar").style.width = percentage + "%";
 
       const focusKicker = document.getElementById("focusKicker");
       const focusTitle = document.getElementById("focusTitle");
+      const focusMeaningLabel = document.getElementById("focusMeaningLabel");
       const focusDescription = document.getElementById("focusDescription");
+      const focusExampleLine = document.getElementById("focusExampleLine");
       const focusExample = document.getElementById("focusExample");
       const focusTranslation = document.getElementById("focusTranslation");
       const jumpButton = document.getElementById("jumpButton");
@@ -1961,16 +1901,26 @@
       if (next) {
         focusKicker.textContent = "Bugünün odağı";
         focusTitle.textContent = next.day + ". Gün — " + next.pattern;
+        focusMeaningLabel.textContent = "Türkçesi";
         focusDescription.textContent = next.description;
-        focusExample.textContent = next.example;
-        focusTranslation.textContent = "(" + next.translation + ")";
+        if (next.example) {
+          focusExampleLine.hidden = false;
+          focusExample.textContent = next.example;
+          focusTranslation.textContent = "(" + next.translation + ")";
+        } else {
+          focusExampleLine.hidden = true;
+          focusExample.textContent = "";
+          focusTranslation.textContent = "";
+        }
         jumpButton.hidden = false;
         jumpButton.dataset.day = String(next.day);
         jumpButton.dataset.week = String(next.week);
       } else {
         focusKicker.textContent = "Program tamamlandı";
-        focusTitle.textContent = "84 kalıbın tamamlandı. Harika iş!";
+        focusTitle.textContent = TOTAL_PATTERNS + " kalıbın tamamlandı. Harika iş!";
+        focusMeaningLabel.textContent = "Durum";
         focusDescription.textContent = "Kalıpları canlı tutmak için haftalık pratiklerine dönmeye devam edebilirsin.";
+        focusExampleLine.hidden = false;
         focusExample.textContent = "You did it. Keep speaking.";
         focusTranslation.textContent = "(Başardın. Konuşmaya devam et.)";
         jumpButton.hidden = true;
@@ -1983,9 +1933,9 @@
           return progress.completedDays.has(item[0]);
         }).length;
         const details = document.getElementById("week-" + week.week);
-        document.getElementById("week-count-" + week.week).textContent = weekCompleted + " / 7";
-        document.getElementById("week-bar-" + week.week).style.width = ((weekCompleted / 7) * 100) + "%";
-        details.classList.toggle("week-complete", weekCompleted === 7);
+        document.getElementById("week-count-" + week.week).textContent = weekCompleted + " / " + week.patterns.length;
+        document.getElementById("week-bar-" + week.week).style.width = ((weekCompleted / week.patterns.length) * 100) + "%";
+        details.classList.toggle("week-complete", weekCompleted === week.patterns.length);
 
         week.patterns.forEach(function (item) {
           const day = item[0];
