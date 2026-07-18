@@ -341,6 +341,128 @@
       margin-top: 18px;
     }
 
+    .study-guide-card {
+      overflow: hidden;
+      margin-top: 18px;
+      border-radius: var(--radius);
+    }
+
+    .study-guide-summary {
+      display: grid;
+      min-height: 86px;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 16px;
+      padding: 20px clamp(20px, 3vw, 30px);
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+    }
+
+    .study-guide-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .study-guide-icon {
+      display: grid;
+      width: 46px;
+      height: 46px;
+      place-items: center;
+      border: 1px solid rgba(66, 223, 207, 0.24);
+      border-radius: 14px;
+      color: var(--teal);
+      background: linear-gradient(145deg, rgba(66, 223, 207, 0.13), rgba(76, 157, 255, 0.08));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 10px 24px rgba(0, 0, 0, 0.15);
+      font-size: 1.08rem;
+      font-weight: 850;
+    }
+
+    .study-guide-heading {
+      display: grid;
+      gap: 5px;
+    }
+
+    .study-guide-title {
+      color: var(--text-soft);
+      font-size: clamp(0.94rem, 2vw, 1.08rem);
+      font-weight: 820;
+      letter-spacing: 0.07em;
+    }
+
+    .study-guide-hint {
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 580;
+    }
+
+    .study-guide-toggle {
+      position: relative;
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(156, 140, 255, 0.22);
+      border-radius: 11px;
+      background: rgba(156, 140, 255, 0.08);
+    }
+
+    .study-guide-toggle::before,
+    .study-guide-toggle::after {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 12px;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--violet);
+      content: "";
+      transition: transform 220ms ease;
+      transform: translate(-50%, -50%);
+    }
+
+    .study-guide-toggle::after {
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    .study-guide-card[open] .study-guide-toggle::after {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    .study-guide-card[open] .study-guide-summary {
+      background: linear-gradient(90deg, rgba(66, 223, 207, 0.035), rgba(156, 140, 255, 0.045));
+    }
+
+    .study-guide-content {
+      padding: 0 clamp(20px, 3vw, 30px) 28px;
+      border-top: 1px solid var(--line);
+    }
+
+    .study-guide-list {
+      display: grid;
+      gap: 13px;
+      margin: 0;
+      padding: 22px 0 0;
+      list-style: none;
+    }
+
+    .study-guide-list li {
+      position: relative;
+      padding-left: 25px;
+      color: #cbd2e7;
+      font-size: 0.91rem;
+      line-height: 1.65;
+    }
+
+    .study-guide-list li::before {
+      position: absolute;
+      top: 0.66em;
+      left: 2px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      box-shadow: 0 0 14px rgba(66, 223, 207, 0.42);
+      content: "";
+    }
+
     .focus-card,
     .summary-card,
     .rhythm-card,
@@ -1442,6 +1564,26 @@
         </div>
       </div>
     </section>
+
+    <details class="study-guide-card glass">
+      <summary class="study-guide-summary">
+        <span class="study-guide-icon" aria-hidden="true">?</span>
+        <span class="study-guide-heading">
+          <span class="study-guide-title" role="heading" aria-level="2">NASIL ÇALIŞMALIYIM?</span>
+          <span class="study-guide-hint">Çalışma önerilerini görmek için dokun.</span>
+        </span>
+        <span class="study-guide-toggle" aria-hidden="true"></span>
+      </summary>
+      <div class="study-guide-content">
+        <ul class="study-guide-list">
+          <li>Kalıbı sesli şekilde 5-10 kez sesli bir şekilde okuyarak tekrar et.</li>
+          <li>Gün içerisinde cümleye bakmadan kalıbı hatırlamaya çalış, her hata yaptığında 10 kez sesli bir şekilde tekrar et.</li>
+          <li>Telefonundan kalıbı okurken kısa bir ses kaydı al. Telaffuzun, akıcılığın ve duraksamaların hakkında farkındalık kazanırsın. Her gün küçük gelişim büyük fark yaratır.</li>
+          <li>Tek seferde uzun çalışmak yerine gün içine yay, aklına geldikçe bakmadan tahmin etmeye çalış ve kontrol et.</li>
+          <li>Sadece bugünün kalıbını değil, önceki günlerin kalıplarını da hızlıca gözden geçir. Eski kalıpları karıştırarak tekrar etmek unutmayı azaltır.</li>
+        </ul>
+      </div>
+    </details>
 
     <section class="content-grid" aria-label="Günlük odak ve özet">
       <article class="focus-card glass" id="focusCard">
