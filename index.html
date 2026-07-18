@@ -1154,6 +1154,167 @@
       color: #ff9db2;
     }
 
+    .final-exam-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 20px;
+      overflow: hidden;
+      margin-top: 22px;
+      padding: clamp(22px, 4vw, 30px);
+      border: 1px solid rgba(156, 140, 255, 0.24);
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 88% 10%, rgba(66, 223, 207, 0.12), transparent 32%),
+        radial-gradient(circle at 8% 88%, rgba(156, 140, 255, 0.13), transparent 34%),
+        linear-gradient(145deg, rgba(20, 26, 49, 0.96), rgba(8, 12, 27, 0.98));
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.055);
+      transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+    }
+
+    .final-exam-card::before {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(110deg, transparent 18%, rgba(255, 255, 255, 0.035) 48%, transparent 72%);
+      content: "";
+      pointer-events: none;
+      transform: translateX(-65%);
+      transition: transform 700ms ease;
+    }
+
+    .final-exam-card.is-ready {
+      border-color: rgba(66, 223, 207, 0.38);
+      box-shadow: 0 28px 70px rgba(39, 122, 158, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.075);
+    }
+
+    .final-exam-card.is-ready:hover::before {
+      transform: translateX(65%);
+    }
+
+    .final-exam-card.is-passed {
+      border-color: rgba(105, 232, 182, 0.4);
+      background:
+        radial-gradient(circle at 86% 8%, rgba(105, 232, 182, 0.17), transparent 34%),
+        linear-gradient(145deg, rgba(18, 46, 43, 0.96), rgba(7, 24, 24, 0.98));
+      box-shadow: 0 26px 68px rgba(31, 126, 93, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.075);
+    }
+
+    .final-exam-emblem {
+      position: relative;
+      display: grid;
+      width: 66px;
+      height: 66px;
+      place-items: center;
+      border: 1px solid rgba(156, 140, 255, 0.28);
+      border-radius: 20px;
+      color: #d8d3ff;
+      background: linear-gradient(145deg, rgba(156, 140, 255, 0.16), rgba(76, 157, 255, 0.08));
+      font-size: 1.12rem;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .final-exam-card.is-ready .final-exam-emblem {
+      border-color: rgba(66, 223, 207, 0.4);
+      color: var(--teal);
+      background: linear-gradient(145deg, rgba(66, 223, 207, 0.15), rgba(76, 157, 255, 0.09));
+    }
+
+    .final-exam-card.is-passed .final-exam-emblem {
+      border-color: rgba(105, 232, 182, 0.42);
+      color: #071b15;
+      background: var(--success);
+    }
+
+    .final-exam-copy {
+      position: relative;
+      display: grid;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .final-exam-kicker {
+      color: var(--teal);
+      font-size: 0.68rem;
+      font-weight: 850;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .final-exam-title {
+      margin: 0;
+      color: #ffffff;
+      font-size: clamp(1.25rem, 3vw, 1.7rem);
+      letter-spacing: -0.035em;
+      line-height: 1.2;
+    }
+
+    .final-exam-status {
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 650;
+      line-height: 1.55;
+    }
+
+    .final-exam-card.is-passed .final-exam-kicker,
+    .final-exam-card.is-passed .final-exam-status {
+      color: var(--success);
+    }
+
+    .final-exam-button {
+      position: relative;
+      display: inline-flex;
+      min-width: 188px;
+      min-height: 52px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 20px;
+      border: 1px solid rgba(66, 223, 207, 0.38);
+      border-radius: 15px;
+      color: #ffffff;
+      background: linear-gradient(135deg, #7568f5, #4c9dff 55%, #28cfc1);
+      box-shadow: 0 14px 34px rgba(76, 84, 200, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 880;
+      letter-spacing: 0.08em;
+      transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease, opacity 180ms ease;
+    }
+
+    .final-exam-button::after {
+      content: "→";
+      font-size: 1rem;
+    }
+
+    .final-exam-button:not(:disabled):hover {
+      filter: brightness(1.09);
+      box-shadow: 0 18px 42px rgba(76, 126, 221, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+      transform: translateY(-2px);
+    }
+
+    .final-exam-button:disabled {
+      border-color: rgba(166, 180, 224, 0.14);
+      color: #747d9a;
+      background: rgba(255, 255, 255, 0.035);
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    .final-exam-card.is-passed .final-exam-button:disabled {
+      border-color: rgba(105, 232, 182, 0.3);
+      color: #dffbed;
+      background: rgba(105, 232, 182, 0.12);
+      opacity: 1;
+    }
+
+    .final-exam-card.is-passed .final-exam-button::after {
+      content: "✓";
+    }
+
     .footer-area {
       margin-top: 18px;
     }
@@ -1723,6 +1884,44 @@
       gap: 10px;
     }
 
+    .completion-result {
+      padding-top: 2px;
+    }
+
+    .completion-result .exam-result-symbol {
+      margin-bottom: 20px;
+    }
+
+    .completion-title {
+      max-width: 520px;
+      margin: 0 auto 18px;
+      color: #aaf6d2;
+      font-size: clamp(1.45rem, 4.5vw, 2.1rem);
+      letter-spacing: -0.035em;
+      line-height: 1.25;
+      text-align: center;
+    }
+
+    .completion-copy {
+      display: grid;
+      max-width: 510px;
+      gap: 11px;
+      margin: 0 auto 22px;
+      color: var(--text-soft);
+      font-size: 0.94rem;
+      line-height: 1.7;
+      text-align: left;
+    }
+
+    .completion-copy p {
+      margin: 0;
+    }
+
+    .completion-result .exam-result-actions {
+      justify-content: flex-end;
+      margin-top: 26px;
+    }
+
     .result-pass .exam-primary-button {
       border-color: rgba(105, 232, 182, 0.42);
       color: #071b15;
@@ -1976,6 +2175,25 @@
         min-width: 0;
       }
 
+      .final-exam-card {
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 15px;
+        padding: 20px 18px;
+      }
+
+      .final-exam-emblem {
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+        font-size: 0.95rem;
+      }
+
+      .final-exam-button {
+        width: 100%;
+        min-width: 0;
+        grid-column: 1 / -1;
+      }
+
       .exam-modal {
         max-height: calc(100dvh - 20px);
         padding: 20px 16px;
@@ -2155,6 +2373,15 @@
         <span class="curriculum-badge">7 kalıp × 12 hafta</span>
       </header>
       <div class="week-list" id="weekList"></div>
+      <section class="final-exam-card" id="finalExamCard" aria-labelledby="finalExamTitle">
+        <div class="final-exam-emblem" id="finalExamEmblem" aria-hidden="true">84</div>
+        <div class="final-exam-copy">
+          <span class="final-exam-kicker">Tüm program değerlendirmesi</span>
+          <h3 class="final-exam-title" id="finalExamTitle">SON SINAV</h3>
+          <span class="final-exam-status" id="finalExamStatus">12 haftayı ve tüm haftalık sınavları tamamladığında açılır.</span>
+        </div>
+        <button class="final-exam-button" id="finalExamButton" type="button" disabled>SON SINAV</button>
+      </section>
     </section>
 
     <section class="footer-area">
@@ -2207,7 +2434,7 @@
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDescription">
       <div class="modal-icon" aria-hidden="true">!</div>
       <h2 id="modalTitle">İlerleme sıfırlansın mı?</h2>
-      <p id="modalDescription">Tüm tamamlanan günler ve haftalık sınav sonuçları silinecek. Bu işlem geri alınamaz.</p>
+      <p id="modalDescription">Tüm tamamlanan günler, haftalık sınavlar ve son sınav sonucu silinecek. Bu işlem geri alınamaz.</p>
       <div class="modal-actions">
         <button class="modal-cancel" id="cancelReset" type="button">Vazgeç</button>
         <button class="modal-confirm" id="confirmReset" type="button">Evet, sıfırla</button>
@@ -2219,7 +2446,7 @@
     <section class="exam-modal" id="examDialog" role="dialog" aria-modal="true" aria-labelledby="examModalTitle">
       <header class="exam-modal-header">
         <div>
-          <span class="exam-modal-kicker">Haftalık değerlendirme</span>
+          <span class="exam-modal-kicker" id="examModalKicker">Haftalık değerlendirme</span>
           <h2 class="exam-modal-title" id="examModalTitle">1. HAFTA SINAVI</h2>
         </div>
         <button class="exam-close" id="closeExam" type="button" aria-label="Sınav ekranını kapat">×</button>
@@ -2434,18 +2661,27 @@
             }
           });
         }
+        const finalExamScoreValue = saved.finalExamScore === null || saved.finalExamScore === undefined
+          ? NaN
+          : Number(saved.finalExamScore);
         return {
           completedDays: new Set(completedDays),
           passedExams: new Set(passedExams),
           failedExams: new Set(failedExams),
-          examScores: examScores
+          examScores: examScores,
+          finalExamPassed: currentRaw ? saved.finalExamPassed === true : false,
+          finalExamScore: currentRaw && Number.isFinite(finalExamScoreValue) && finalExamScoreValue >= 0 && finalExamScoreValue <= 100
+            ? Math.round(finalExamScoreValue)
+            : null
         };
       } catch (error) {
         return {
           completedDays: new Set(),
           passedExams: new Set(),
           failedExams: new Set(),
-          examScores: {}
+          examScores: {},
+          finalExamPassed: false,
+          finalExamScore: null
         };
       }
     }
@@ -2458,7 +2694,9 @@
           completedDays: Array.from(progress.completedDays).sort(function (a, b) { return a - b; }),
           passedExams: Array.from(progress.passedExams).sort(function (a, b) { return a - b; }),
           failedExams: Array.from(progress.failedExams).sort(function (a, b) { return a - b; }),
-          examScores: progress.examScores
+          examScores: progress.examScores,
+          finalExamPassed: progress.finalExamPassed,
+          finalExamScore: progress.finalExamScore
         }));
       } catch (error) {
         /* Tarayıcı depolamayı engellerse uygulama mevcut oturumda çalışmaya devam eder. */
@@ -2565,6 +2803,8 @@
       const examCount = progress.passedExams.size;
       const percentage = Math.round((completedCount / TOTAL_PATTERNS) * 100);
       const next = getNextPattern();
+      const allWeeklyExamsPassed = examCount === TOTAL_WEEKS;
+      const finalExamReady = completedCount === TOTAL_PATTERNS && allWeeklyExamsPassed;
       const ring = document.getElementById("progressRing");
 
       ring.style.setProperty("--progress", percentage + "%");
@@ -2573,7 +2813,13 @@
       document.getElementById("ringValue").textContent = percentage + "%";
       document.getElementById("completedMetric").textContent = completedCount + " / " + TOTAL_PATTERNS;
       document.getElementById("practiceMetric").textContent = examCount + " / " + TOTAL_WEEKS;
-      document.getElementById("nextMetric").textContent = next ? next.day + ". gün" : "Tamamlandı";
+      document.getElementById("nextMetric").textContent = next
+        ? next.day + ". gün"
+        : progress.finalExamPassed
+          ? "Tamamlandı"
+          : finalExamReady
+            ? "Son sınav"
+            : "Haftalık sınavlar";
       document.getElementById("overallBar").style.width = percentage + "%";
 
       const focusKicker = document.getElementById("focusKicker");
@@ -2603,10 +2849,22 @@
         jumpButton.dataset.day = String(next.day);
         jumpButton.dataset.week = String(next.week);
       } else {
-        focusKicker.textContent = "Program tamamlandı";
-        focusTitle.textContent = TOTAL_PATTERNS + " kalıbın tamamlandı. Harika iş!";
+        focusKicker.textContent = progress.finalExamPassed
+          ? "Eğitim tamamlandı"
+          : finalExamReady
+            ? "Son sınav hazır"
+            : "Kalıp programı tamamlandı";
+        focusTitle.textContent = progress.finalExamPassed
+          ? "Tebrikler, eğitimin tamamlandı!"
+          : finalExamReady
+            ? TOTAL_PATTERNS + " kalıp tamamlandı. Son sınav seni bekliyor."
+            : TOTAL_PATTERNS + " kalıp tamamlandı. Haftalık sınavlarını bitir.";
         focusMeaningLabel.textContent = "Durum";
-        focusDescription.textContent = "Kalıpları canlı tutmak için haftalık sınavlarına dönmeye devam edebilirsin.";
+        focusDescription.textContent = progress.finalExamPassed
+          ? "İngilizcede en çok kullanılan 84 kalıp için tüm programı başarıyla tamamladın."
+          : finalExamReady
+            ? "20 soruluk son sınavı %80 veya üzeri notla tamamlayarak eğitimi bitirebilirsin."
+            : "Son sınavın açılması için tamamlanmamış haftalık sınavlarına dön.";
         focusExampleLine.hidden = false;
         focusExample.textContent = "You did it. Keep speaking.";
         focusTranslation.textContent = "(Başardın. Konuşmaya devam et.)";
@@ -2655,6 +2913,27 @@
           examStatus.textContent = "Sınav için " + (week.patterns.length - weekCompleted) + " kalıp kaldı";
         }
       });
+
+      const finalExamCard = document.getElementById("finalExamCard");
+      const finalExamButton = document.getElementById("finalExamButton");
+      const finalExamStatus = document.getElementById("finalExamStatus");
+      const finalExamEmblem = document.getElementById("finalExamEmblem");
+      finalExamButton.disabled = !finalExamReady || progress.finalExamPassed;
+      finalExamCard.classList.toggle("is-ready", finalExamReady && !progress.finalExamPassed);
+      finalExamCard.classList.toggle("is-passed", progress.finalExamPassed);
+      if (progress.finalExamPassed) {
+        finalExamEmblem.textContent = "✓";
+        finalExamStatus.textContent = "Eğitim tamamlandı • %" + (progress.finalExamScore || 100);
+      } else if (finalExamReady) {
+        finalExamEmblem.textContent = "20";
+        finalExamStatus.textContent = "84 kalıptan rastgele 20 soru • Süre yok • Geçme notu %80";
+      } else {
+        finalExamEmblem.textContent = "84";
+        const remainingExams = TOTAL_WEEKS - examCount;
+        finalExamStatus.textContent = remainingExams > 0
+          ? "Son sınav için " + remainingExams + " haftalık sınav kaldı."
+          : "Son sınav için tüm 84 kalıbı tamamla.";
+      }
     }
 
     function jumpToCurrentPattern() {
@@ -2743,11 +3022,33 @@
       return shuffleArray(questions);
     }
 
+    function buildFinalExamQuestions() {
+      const finalPool = curriculum.reduce(function (list, week) {
+        return list.concat(week.patterns);
+      }, []);
+      const selectedPatterns = shuffleArray(finalPool).slice(0, 20);
+      const poolForOptions = { week: "Son sınav", patterns: finalPool };
+      const questions = selectedPatterns.map(function (item, index) {
+        const direction = index < 10 ? "en-to-tr" : "tr-to-en";
+        const targetIndex = finalPool.indexOf(item);
+        return {
+          id: "final-" + item[0] + "-" + direction,
+          direction: direction,
+          prompt: direction === "en-to-tr" ? item[1] : item[2],
+          correct: direction === "en-to-tr" ? item[2] : item[1],
+          options: buildQuestionOptions(poolForOptions, targetIndex, direction)
+        };
+      });
+      return shuffleArray(questions);
+    }
+
     const examModal = document.getElementById("examModal");
     const examDialog = document.getElementById("examDialog");
     const examContent = document.getElementById("examContent");
     const examModalTitle = document.getElementById("examModalTitle");
+    const examModalKicker = document.getElementById("examModalKicker");
     let examState = {
+      type: "weekly",
       week: null,
       questions: [],
       answers: [],
@@ -2777,6 +3078,7 @@
       }
 
       examState = {
+        type: "weekly",
         week: weekNumber,
         questions: [],
         answers: [],
@@ -2787,42 +3089,73 @@
         phase: "intro"
       };
       examDialog.classList.remove("result-pass", "result-fail");
+      examModalKicker.textContent = "Haftalık değerlendirme";
       examModalTitle.textContent = weekNumber + ". HAFTA SINAVI";
       examModal.hidden = false;
       document.body.classList.add("modal-open");
       renderExamIntro();
     }
 
+    function isFinalExamReady() {
+      return progress.completedDays.size === TOTAL_PATTERNS && progress.passedExams.size === TOTAL_WEEKS;
+    }
+
+    function openFinalExam() {
+      if (!isFinalExamReady() || progress.finalExamPassed) {
+        return;
+      }
+
+      examState = {
+        type: "final",
+        week: null,
+        questions: [],
+        answers: [],
+        currentIndex: 0,
+        correctCount: 0,
+        percentage: 0,
+        passed: false,
+        phase: "intro"
+      };
+      examDialog.classList.remove("result-pass", "result-fail");
+      examModalKicker.textContent = "Tüm program değerlendirmesi";
+      examModalTitle.textContent = "SON SINAV";
+      examModal.hidden = false;
+      document.body.classList.add("modal-open");
+      renderExamIntro();
+    }
+
     function renderExamIntro() {
+      const isFinalExam = examState.type === "final";
       examContent.innerHTML =
         '<div class="exam-intro">' +
-          '<div class="exam-intro-icon" aria-hidden="true">14</div>' +
-          '<h3>Hazırsan bilgini test et.</h3>' +
-          '<p>Bu sınavda yalnızca ' + examState.week + '. haftanın 7 kalıbı bulunur. Her kalıp için İngilizceden Türkçeye ve Türkçeden İngilizceye birer soru sorulur.</p>' +
+          '<div class="exam-intro-icon" aria-hidden="true">' + (isFinalExam ? "20" : "14") + '</div>' +
+          '<h3>' + (isFinalExam ? "84 kalıptaki ustalığını göster." : "Hazırsan bilgini test et.") + '</h3>' +
+          '<p>' + (isFinalExam
+            ? "Bu sınav 12 haftanın tamamındaki 84 kalıbı kapsar. Sorular tüm 84 kalıptan rastgele seçilir; 10 soruda İngilizceden Türkçeye, 10 soruda Türkçeden İngilizceye çeviri istenir."
+            : "Bu sınavda yalnızca " + examState.week + ". haftanın 7 kalıbı bulunur. Her kalıp için İngilizceden Türkçeye ve Türkçeden İngilizceye birer soru sorulur.") + '</p>' +
           '<div class="exam-facts" aria-label="Sınav bilgileri">' +
-            '<span class="exam-fact">14 soru</span>' +
+            '<span class="exam-fact">' + (isFinalExam ? "20" : "14") + ' soru</span>' +
             '<span class="exam-fact">4 seçenek</span>' +
             '<span class="exam-fact">Süre yok</span>' +
-            '<span class="exam-fact">Geçme notu %75</span>' +
+            '<span class="exam-fact">Geçme notu %' + (isFinalExam ? "80" : "75") + '</span>' +
           '</div>' +
           '<button class="exam-primary-button" id="startExam" type="button">SINAVA BAŞLA</button>' +
         '</div>';
 
       document.getElementById("startExam").addEventListener("click", function () {
-        startExam(examState.week);
+        startExam();
       });
       window.setTimeout(function () {
         document.getElementById("startExam").focus();
       }, 0);
     }
 
-    function startExam(weekNumber) {
-      const week = getExamWeek(weekNumber);
-      if (!week) {
+    function startExam() {
+      const week = examState.type === "weekly" ? getExamWeek(examState.week) : null;
+      if (examState.type === "weekly" && !week) {
         return;
       }
-      examState.week = weekNumber;
-      examState.questions = buildExamQuestions(week);
+      examState.questions = examState.type === "final" ? buildFinalExamQuestions() : buildExamQuestions(week);
       examState.answers = new Array(examState.questions.length).fill(null);
       examState.currentIndex = 0;
       examState.correctCount = 0;
@@ -2836,6 +3169,7 @@
     function renderExamQuestion() {
       const question = examState.questions[examState.currentIndex];
       const total = examState.questions.length;
+      const passMark = examState.type === "final" ? 80 : 75;
       const isLastQuestion = examState.currentIndex === total - 1;
       const selectedAnswer = examState.answers[examState.currentIndex];
       const directionLabel = question.direction === "en-to-tr" ? "İngilizceden Türkçeye" : "Türkçeden İngilizceye";
@@ -2853,7 +3187,7 @@
 
       examContent.innerHTML =
         '<div class="exam-progress">' +
-          '<div class="exam-progress-meta"><span>Soru ' + (examState.currentIndex + 1) + ' / ' + total + '</span><span>%75 ve üzeri başarılı</span></div>' +
+          '<div class="exam-progress-meta"><span>Soru ' + (examState.currentIndex + 1) + ' / ' + total + '</span><span>%' + passMark + ' ve üzeri başarılı</span></div>' +
           '<div class="exam-progress-track" aria-hidden="true"><div class="exam-progress-fill" style="width:' + (((examState.currentIndex + 1) / total) * 100) + '%"></div></div>' +
         '</div>' +
         '<span class="exam-direction">' + directionLabel + '</span>' +
@@ -2896,22 +3230,26 @@
     }
 
     function finishExam() {
-      const week = getExamWeek(examState.week);
+      const isFinalExam = examState.type === "final";
+      const week = isFinalExam ? null : getExamWeek(examState.week);
       examState.correctCount = examState.questions.reduce(function (count, question, index) {
         return count + (examState.answers[index] === question.correct ? 1 : 0);
       }, 0);
       examState.percentage = Math.round((examState.correctCount / examState.questions.length) * 100);
-      examState.passed = examState.percentage >= 75;
+      examState.passed = examState.percentage >= (isFinalExam ? 80 : 75);
       examState.phase = "result";
 
-      if (examState.passed) {
+      if (isFinalExam && examState.passed) {
+        progress.finalExamPassed = true;
+        progress.finalExamScore = examState.percentage;
+      } else if (!isFinalExam && examState.passed) {
         week.patterns.forEach(function (item) {
           progress.completedDays.add(item[0]);
         });
         progress.passedExams.add(week.week);
         progress.failedExams.delete(week.week);
         progress.examScores[week.week] = examState.percentage;
-      } else {
+      } else if (!isFinalExam) {
         week.patterns.forEach(function (item) {
           progress.completedDays.delete(item[0]);
         });
@@ -2926,7 +3264,12 @@
     }
 
     function renderExamResult() {
+      if (examState.type === "final" && examState.passed) {
+        renderCompletionResult();
+        return;
+      }
       const incorrectCount = examState.questions.length - examState.correctCount;
+      const isFinalExam = examState.type === "final";
       examDialog.classList.toggle("result-pass", examState.passed);
       examDialog.classList.toggle("result-fail", !examState.passed);
       examContent.innerHTML =
@@ -2936,7 +3279,9 @@
           '<h3 class="exam-result-title">' + (examState.passed ? "TEBRİKLER SINAVI BAŞARIYLA TAMAMLADIN!" : "SINAVDAN KALDIN!") + '</h3>' +
           '<p class="exam-result-copy">' + (examState.passed
             ? "Haftalık sınavın tamamlandı olarak işaretlendi. Bu haftanın 7 kalıbı ilerlemende korunuyor."
-            : "Bu haftanın günlük işaretleri kaldırıldı. Kalıpları yeniden gözden geçirip sınava tekrar girebilirsin.") + '</p>' +
+            : isFinalExam
+              ? "Günlük ve haftalık ilerlemen korunuyor. Tüm 84 kalıbı yeniden gözden geçirip son sınava istediğin kadar tekrar girebilirsin."
+              : "Bu haftanın günlük işaretleri kaldırıldı. Kalıpları yeniden gözden geçirip sınava tekrar girebilirsin.") + '</p>' +
           '<div class="exam-result-stats">' +
             '<span class="exam-result-stat">' + examState.correctCount + ' doğru</span>' +
             '<span class="exam-result-stat">' + incorrectCount + ' yanlış</span>' +
@@ -2950,11 +3295,39 @@
       document.getElementById("resultCloseExam").addEventListener("click", closeExamModal);
       if (!examState.passed) {
         document.getElementById("retryExam").addEventListener("click", function () {
-          startExam(examState.week);
+          startExam();
         });
       }
       window.setTimeout(function () {
         (examState.passed ? document.getElementById("resultCloseExam") : document.getElementById("retryExam")).focus();
+      }, 0);
+    }
+
+    function renderCompletionResult() {
+      const incorrectCount = examState.questions.length - examState.correctCount;
+      examDialog.classList.add("result-pass");
+      examDialog.classList.remove("result-fail");
+      examContent.innerHTML =
+        '<div class="exam-result completion-result">' +
+          '<div class="exam-result-symbol" aria-hidden="true">✓</div>' +
+          '<h3 class="completion-title">TEBRİKLER EĞİTİMİ TAMAMLADIN!</h3>' +
+          '<div class="completion-copy">' +
+            '<p>Tüm eğitimi başarı ile tamamladın.</p>' +
+            '<p>Artık ingilizcede en çok kullanılan 84 kalıba tam anlamıyla hakim olduğun söylenebilir.</p>' +
+            '<p>İngilizce öğrenme konusunda ulaştığın bu disiplini koruyup kendini geliştirmeye devam et.</p>' +
+          '</div>' +
+          '<div class="exam-result-stats">' +
+            '<span class="exam-result-stat">%' + examState.percentage + ' başarı</span>' +
+            '<span class="exam-result-stat">' + examState.correctCount + ' doğru • ' + incorrectCount + ' yanlış</span>' +
+          '</div>' +
+          '<div class="exam-result-actions">' +
+            '<button class="exam-secondary-button" id="resultCloseExam" type="button">KAPAT</button>' +
+          '</div>' +
+        '</div>';
+
+      document.getElementById("resultCloseExam").addEventListener("click", closeExamModal);
+      window.setTimeout(function () {
+        document.getElementById("resultCloseExam").focus();
       }, 0);
     }
 
@@ -2969,7 +3342,9 @@
       if (resetModal.hidden) {
         document.body.classList.remove("modal-open");
       }
-      const weekSummary = document.querySelector('#week-' + weekNumber + ' > .week-summary');
+      const weekSummary = examState.type === "weekly"
+        ? document.querySelector('#week-' + weekNumber + ' > .week-summary')
+        : document.getElementById("finalExamButton");
       if (weekSummary) {
         weekSummary.focus();
       }
@@ -2997,6 +3372,8 @@
       progress.passedExams.clear();
       progress.failedExams.clear();
       progress.examScores = {};
+      progress.finalExamPassed = false;
+      progress.finalExamScore = null;
       saveProgress();
       updateInterface();
       document.querySelectorAll(".week-card").forEach(function (details, index) {
@@ -3010,6 +3387,7 @@
     }
 
     document.getElementById("jumpButton").addEventListener("click", jumpToCurrentPattern);
+    document.getElementById("finalExamButton").addEventListener("click", openFinalExam);
     document.getElementById("resetButton").addEventListener("click", openResetModal);
     cancelReset.addEventListener("click", closeResetModal);
     document.getElementById("confirmReset").addEventListener("click", resetProgress);
